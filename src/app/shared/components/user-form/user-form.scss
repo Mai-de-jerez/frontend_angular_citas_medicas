@@ -6,6 +6,30 @@ form {
   gap: 1.25rem;
 }
 
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+
+  .btn-cancelar {
+    background: rgba(168, 85, 247, 0.08);
+    color: $color-accent;
+    border: 1.5px solid rgba(168, 85, 247, 0.3);
+    border-radius: $border-radius-sm;
+    padding: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: $color-accent;
+    }
+  }
+}
+
 .avatar-upload {
   display: flex;
   flex-direction: column;
@@ -16,12 +40,13 @@ form {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background: $color-bg-input;
-    border: 2px solid $color-border;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    cursor: pointer;
 
     img {
       width: 100%;
@@ -41,9 +66,7 @@ form {
     cursor: pointer;
     transition: color $transition;
 
-    &:hover {
-      color: $color-accent-light;
-    }
+    &:hover { color: $color-accent-hover; }
   }
 }
 
@@ -63,40 +86,36 @@ form {
   gap: 0.4rem;
 
   label {
-    color: $color-text-secondary;
+    color: #6b7280;
     font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    display: block;
   }
 
   input, select {
-    background: $color-bg-input;
-    border: 1px solid $color-border-input;
-    border-radius: $border-radius-sm;
-    color: $color-text-primary;
-    font-size: 0.95rem;
-    padding: 0.75rem 1rem;
-    outline: none;
-    transition: border-color $transition;
     width: 100%;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: #111827;
+    font-size: 0.95rem;
+    transition: border-color $transition;
 
     &:focus {
+      outline: none;
       border-color: $color-accent;
+      background: #fff;
     }
 
-    &::placeholder {
-      color: $color-text-placeholder;
-    }
+    &::placeholder { color: #9ca3af; }
   }
 
-  select option {
-    background: $color-bg-secondary;
-  }
+  select option { background: #fff; }
 
   .error {
-    color: $color-error;
-    font-size: 0.78rem;
+    color: #dc2626;
+    font-size: 0.75rem;
   }
 
   &--checkbox {
@@ -107,10 +126,8 @@ form {
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
-      color: $color-text-secondary;
+      color: #6b7280;
       font-size: 0.9rem;
-      text-transform: none;
-      letter-spacing: 0;
 
       input[type="checkbox"] {
         width: 16px;
@@ -124,27 +141,15 @@ form {
 
 button {
   background: $color-accent;
+  color: white;
   border: none;
-  border-radius: $border-radius-sm;
-  color: $color-text-primary;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 0.9rem;
-  transition: opacity $transition, transform 0.1s;
+  border-radius: 8px;
+  padding: 0.75rem;
   width: 100%;
+  font-weight: 600;
+  cursor: pointer;
   margin-top: 0.5rem;
 
-  &:hover:not(:disabled) {
-    opacity: 0.85;
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.99);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-  }
+  &:hover:not(:disabled) { background: $color-accent-hover; }
+  &:disabled { cursor: not-allowed; opacity: 0.4; }
 }

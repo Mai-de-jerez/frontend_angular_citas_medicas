@@ -73,7 +73,10 @@ export class AuthService {
 
   register(formData: FormData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData).pipe(
-      tap(res => this.guardarSesion(res))
+      tap(res => {
+        this.guardarSesion(res);
+        this.redirigirSegunRol();
+      })
     );
   }
 

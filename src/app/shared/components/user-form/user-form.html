@@ -1,15 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
 
   <div class="avatar-upload">
     <div class="avatar-preview">
-      @if (fotoPreview) {
-        <img [src]="fotoPreview" alt="Preview foto" />
+      @if (fotoPreview()) {
+        <img [src]="fotoPreview()" alt="Preview foto" />
       } @else {
         <span class="avatar-placeholder">📷</span>
       }
     </div>
     <label for="foto" class="avatar-label">
-      {{ fotoPreview ? 'Cambiar foto' : 'Subir foto' }}
+      {{ fotoPreview() ? 'Cambiar foto' : 'Subir foto' }}
     </label>
     <input id="foto" type="file" accept="image/jpeg,image/png,image/jpg,image/webp" (change)="onFotoChange($event)" hidden />
   </div>
@@ -18,16 +18,28 @@
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input id="nombre" type="text" formControlName="nombre" placeholder="Tu nombre" />
-      @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
-        <span class="error">El nombre es obligatorio</span>
+      @if (form.get('nombre')?.touched) {
+        @if (form.get('nombre')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        } @else if (form.get('nombre')?.hasError('minlength')) {
+          <span class="error">Mínimo 3 caracteres</span>
+        } @else if (form.get('nombre')?.hasError('pattern')) {
+          <span class="error">Solo letras y espacios</span>
+        }
       }
     </div>
 
     <div class="form-group">
       <label for="apellidos">Apellidos</label>
       <input id="apellidos" type="text" formControlName="apellidos" placeholder="Tus apellidos" />
-      @if (form.get('apellidos')?.invalid && form.get('apellidos')?.touched) {
-        <span class="error">Los apellidos son obligatorios</span>
+      @if (form.get('apellidos')?.touched) {
+        @if (form.get('apellidos')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        } @else if (form.get('apellidos')?.hasError('minlength')) {
+          <span class="error">Mínimo 3 caracteres</span>
+        } @else if (form.get('apellidos')?.hasError('pattern')) {
+          <span class="error">Solo letras y espacios</span>
+        }
       }
     </div>
   </div>
@@ -35,8 +47,12 @@
   <div class="form-group">
     <label for="email">Email</label>
     <input id="email" type="email" formControlName="email" placeholder="tu@email.com" />
-    @if (form.get('email')?.invalid && form.get('email')?.touched) {
-      <span class="error">El email no es válido</span>
+    @if (form.get('email')?.touched) {
+      @if (form.get('email')?.hasError('required')) {
+        <span class="error">Campo obligatorio</span>
+      } @else if (form.get('email')?.hasError('email')) {
+        <span class="error">Email no válido</span>
+      }
     }
   </div>
 
@@ -48,15 +64,28 @@
   <div class="form-row">
     <div class="form-group">
       <label for="password">Contraseña</label>
-      <input id="password" type="password" formControlName="password" placeholder="••••••••" />
-      @if (form.get('password')?.invalid && form.get('password')?.touched) {
-        <span class="error">Mínimo 8 caracteres</span>
+      <input id="password" type="password" formControlName="password" placeholder="••••••••" autocomplete="new-password"/>
+      @if (form.get('password')?.touched) {
+        @if (form.get('password')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        } @else if (form.get('password')?.hasError('minlength')) {
+          <span class="error">Mínimo 8 caracteres</span>
+        } @else if (form.get('password')?.hasError('pattern')) {
+          <span class="error">Debe tener mayúsculas, minúsculas y números</span>
+        }
       }
     </div>
 
     <div class="form-group">
       <label for="password_confirmation">Confirmar contraseña</label>
-      <input id="password_confirmation" type="password" formControlName="password_confirmation" placeholder="••••••••" />
+      <input id="password_confirmation" type="password" formControlName="password_confirmation" placeholder="••••••••" autocomplete="new-password"/>
+      @if (form.get('password_confirmation')?.touched) {
+        @if (form.get('password_confirmation')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        } @else if (form.hasError('passwordMismatch')) {
+          <span class="error">Las contraseñas no coinciden</span>
+        }
+      }
     </div>
   </div>
 
@@ -80,8 +109,11 @@
     </div>
   }
 
-  <button type="submit" [disabled]="cargando()">
-    {{ cargando() ? 'Guardando...' : textoBoton() }}
-  </button>
+  <div class="form-actions">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" [disabled]="cargando()">
+      {{ cargando() ? 'Guardando...' : textoBoton() }}
+    </button>
+  </div>
 
 </form>

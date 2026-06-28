@@ -10,13 +10,12 @@
 
   .login-card {
     background: #ffffff;
-    border: 1px solid #e5e7eb; // Gris muy suave
+    border: 1px solid #e5e7eb; 
     border-radius: 16px;
     padding: 2.5rem;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); // Sombra muy sutil
-
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); 
     .login-title {
       color: #111827;
       font-size: 1.5rem;
@@ -47,7 +46,7 @@
 
         &:focus {
           outline: none;
-          border-color: $color-accent; // Aquí entra tu púrpura
+          border-color: $color-accent; 
           background: #fff;
         }
       }
