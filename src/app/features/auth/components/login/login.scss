@@ -1,0 +1,91 @@
+@use '../../../../../styles/variables' as *;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: sans-serif;
+
+  .login-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb; // Gris muy suave
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); // Sombra muy sutil
+
+    .login-title {
+      color: #111827;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+
+      label {
+        color: #6b7280;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      input {
+        width: 100%;
+        background: #f9fafb;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 0.75rem;
+        color: #111827;
+        transition: border-color 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: $color-accent; // Aquí entra tu púrpura
+          background: #fff;
+        }
+      }
+
+      .error {
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 0.4rem;
+      }
+    }
+
+    button {
+      background: $color-accent;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      width: 100%;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+
+      &:hover { background: $color-accent-hover; }
+    }
+
+    .links {
+      margin-top: 1.5rem;
+      text-align: center;
+
+      a {
+        display: block;
+        color: #6b7280;
+        font-size: 0.85rem;
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+
+        &:hover { color: $color-accent; }
+      }
+    }
+  }
+}

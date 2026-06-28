@@ -1,0 +1,14 @@
+@use '../../../../../styles/variables' as *;
+
+.footer {
+  background-color: $color-bg-secondary;
+  border-top: 1px solid $color-border;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  p {
+    color: $color-text-secondary;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
