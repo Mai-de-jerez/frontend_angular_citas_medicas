@@ -29,7 +29,7 @@ export interface Usuario {
   apellidos: string;
   email: string;
   telefono?: string;
-  foto?: string;
+  //foto?: string;
   rol: 'admin' | 'medico' | 'paciente';
   activo: boolean;
 }

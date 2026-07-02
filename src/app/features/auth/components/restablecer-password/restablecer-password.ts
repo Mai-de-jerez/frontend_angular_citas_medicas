@@ -37,8 +37,9 @@ export class RestablecerPasswordComponent implements OnInit {
         password: ['', [
           Validators.required, 
           Validators.minLength(8),
-          Validators.pattern(/(?=.*[a-z])(?=.*[A-Z])/), 
-          Validators.pattern(/(?=.*\d)/)               
+          // Validators.pattern(/(?=.*[a-z])(?=.*[A-Z])/), 
+          // Validators.pattern(/(?=.*\d)/) 
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)              
         ]],
         password_confirmation: ['', [Validators.required]]
       }, { validators: this.passwordMatchValidator });

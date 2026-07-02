@@ -56,9 +56,31 @@
     }
   </div>
 
+  <div class="form-row">
+    <div class="form-group">
+      <label for="telefono">Teléfono (opcional)</label>
+      <input id="telefono" type="tel" formControlName="telefono" placeholder="600 000 000" />
+    </div>
+    <div class="form-group">
+      <label for="compania">Compañía</label>
+      <input id="compania" type="text" formControlName="compania" placeholder="Tu compañía" />
+      @if (form.get('compania')?.touched && form.get('compania')?.hasError('required')) {
+        <span class="error">Campo obligatorio</span>
+      }
+    </div>
+  </div>
+
   <div class="form-group">
-    <label for="telefono">Teléfono (opcional)</label>
-    <input id="telefono" type="tel" formControlName="telefono" placeholder="600 000 000" />
+    <label for="numero_tarjeta">Número Tarjeta</label>
+    <input id="numero_tarjeta" type="text" formControlName="numero_tarjeta" placeholder="Ej: 1234567890123456" />
+    
+    @if (form.get('numero_tarjeta')?.touched) {
+      @if (form.get('numero_tarjeta')?.hasError('required')) {
+        <span class="error">Campo obligatorio</span>
+      } @else if (form.get('numero_tarjeta')?.hasError('pattern')) {
+        <span class="error">Debe contener exactamente 16 números (sin guiones ni espacios)</span>
+      }
+    }
   </div>
 
   <div class="form-row">

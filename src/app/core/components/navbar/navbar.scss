@@ -1,4 +1,4 @@
-@use '../../../../../styles/variables' as *;
+@use '../../../../styles/variables' as *;
 
 .navbar {
   display: flex;
@@ -6,24 +6,34 @@
   justify-content: space-between;
   padding: 0 2rem;
   height: 64px;
-  background-color: $color-bg-secondary;
+  background-color: $color-accent;
   border-bottom: 1px solid $color-border;
   position: sticky;
   top: 0;
   z-index: 100;
 
   .navbar-brand {
-    color: $color-accent;
+    color: $color-bg-primary;
     font-size: 1.2rem;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: 0.05em;
     transition: color $transition;
+    display: flex;
+    align-items: center; 
+    gap: 0.75rem;
+    
+    svg {
+      width: 28px; 
+      height: 28px;
+      display: block; 
+    }
 
     &:hover {
       color: $color-accent-light;
     }
   }
+
 
   .navbar-nav {
     display: flex;
@@ -35,9 +45,8 @@
 
     .nav-item {
       .nav-link {
-        color: $color-text-secondary;
+        color: $color-bg-primary;
         text-decoration: none;
-        font-size: 0.9rem;
         padding: 0.5rem 0.85rem;
         border-radius: $border-radius-sm;
         transition: color $transition, background $transition;
@@ -46,10 +55,9 @@
           color: $color-text-primary;
           background: rgba(255, 255, 255, 0.05);
         }
-
         &.active-link {
-          color: $color-accent;
-          background: rgba(168, 85, 247, 0.1);
+          color: #ffffff; 
+          background: rgba(255, 255, 255, 0.2); 
         }
       }
     }
@@ -57,7 +65,7 @@
 
   // Botón logout con estilo diferente
   .nav-link-logout {
-    color: $color-error !important;
+    color: $color-bg-primary !important;
 
     &:hover {
       background: rgba(248, 113, 113, 0.1) !important;
@@ -78,7 +86,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background-color: $color-text-primary;
+      background-color: $color-bg-primary;
       transition: all $transition;
     }
 

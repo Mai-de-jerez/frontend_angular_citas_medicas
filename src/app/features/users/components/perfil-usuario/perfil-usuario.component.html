@@ -1,0 +1,37 @@
+@if (isLoading()) {
+  <p>Cargando expediente ...</p>
+} @else if (perfil(); as p) {
+  <div class="perfil-card">
+    <div class="header-perfil">
+      <img [src]="p.foto_url" alt="Perfil">
+      <h1>{{ p.nombre }} {{ p.apellidos }}</h1>
+    </div>
+
+    <div class="grid-info">
+      <div class="campo"><label>Email</label><span>{{ p.email }}</span></div>
+      <div class="campo"><label>Teléfono</label><span>{{ p.telefono }}</span></div>
+      <div class="campo"><label>Rol</label><span>{{ p.rol }}</span></div>
+      <div class="campo"><label>Estado</label><span>{{ p.activo ? 'Activo' : 'Inactivo' }}</span></div>
+    </div>
+
+    @if (p.medico) {
+      <div class="bloque-clinico">
+        <h3>INFORMACIÓN DE FACULTATIVO</h3>
+        <div class="grid-info">
+          <div class="campo"><label>Nº Colegiado</label><span>{{ p.medico.numero_colegiado }}</span></div>
+          <div class="campo"><label>Especialidad</label><span>{{ p.medico.especialidad.nombre }}</span></div>
+        </div>
+      </div>
+    }
+
+    @if (p.paciente) {
+      <div class="bloque-clinico">
+        <h3>DATOS DE AFILIACIÓN</h3>
+        <div class="grid-info">
+          <div class="campo"><label>Nº Tarjeta</label><span>{{ p.paciente.numero_tarjeta }}</span></div>
+          <div class="campo"><label>Compañía</label><span>{{ p.paciente.compania }}</span></div>
+        </div>
+      </div>
+    }
+  </div>
+}

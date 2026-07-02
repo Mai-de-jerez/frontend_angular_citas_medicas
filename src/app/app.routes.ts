@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './features/auth/layout/auth-layout/auth-layout';
-import { PublicLayout } from './features/public/layout/public-layout/public-layout';
+import { PublicLayout } from './core/layout/public-layout/public-layout';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -31,8 +32,27 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./features/public/components/home/home').then(m => m.Home)
+        loadComponent: () => import('./core/components/home/home').then(m => m.Home)
+      },
+      {
+        path: 'contacto',
+        loadComponent: () => import('./core/components/contacto/contacto').then(m => m.Contacto)
+      },
+      {
+        path: 'mi-perfil',
+        loadComponent: () => import('./features/users/components/perfil-usuario/perfil-usuario.component').then(m => m.PerfilUsuarioComponent),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'mis-citas', 
+        loadComponent: () => import('./features/users/components/mis-citas/mis-citas').then(m => m.MisCitasComponent),
+        canActivate: [authGuard]
       }
     ]
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./features/admin/routes/admin.routes').then(m => m.ADMIN_ROUTES),
+    // canActivate: [adminGuard] // Cuando lo tengas, descomenta esto
   }
 ];

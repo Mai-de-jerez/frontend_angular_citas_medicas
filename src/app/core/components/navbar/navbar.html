@@ -1,5 +1,12 @@
 <nav class="navbar">
-  <a routerLink="/" class="navbar-brand">Citas Médicas</a>
+  <a routerLink="/" class="navbar-brand">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <line x1="12" y1="8" x2="12" y2="16"></line>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+    Centro Médico Mai
+  </a>
 
   <button class="hamburger" (click)="toggleMenu()" [class.abierto]="menuAbierto">
     <span></span>
@@ -12,6 +19,9 @@
     <li class="nav-item">
       <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link" (click)="cerrarMenu()">Inicio</a>
     </li>
+    <li class="nav-item">
+      <a routerLink="/contacto" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Contacto</a>
+    </li>
 
     @if (!authService.isLogged()) {
       <li class="nav-item">
@@ -23,7 +33,7 @@
 
       @if (authService.isAdmin()) {
         <li class="nav-item">
-          <a routerLink="/admin/dashboard" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Panel Admin</a>
+          <a routerLink="/admin" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Panel Admin</a>
         </li>
       }
 

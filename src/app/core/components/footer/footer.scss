@@ -1,0 +1,14 @@
+@use '../../../../styles/variables' as *;
+
+.footer {
+  background-color: $color-accent;
+  border-top: 1px solid $color-border;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  p {
+    color: $color-bg-primary;
+    font-size: 1rem;
+    margin: 0;
+  }
+}

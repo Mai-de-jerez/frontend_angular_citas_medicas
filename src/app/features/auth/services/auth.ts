@@ -66,9 +66,12 @@ export class AuthService {
 
   private redirigirSegunRol(): void {
     const rol = this.#usuario()?.rol;
-    if (rol === 'admin') this.router.navigate(['/admin']);
-    else if (rol === 'medico') this.router.navigate(['/medico']);
-    else this.router.navigate(['/']);
+
+    if (rol === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   register(formData: FormData): Observable<AuthResponse> {
@@ -96,6 +99,7 @@ export class AuthService {
         this.router.navigate(['/auth/login']);
       },
       error: () => {
+        // Si el Back falla o da un 401, nos aseguramos de limpiar la sesión en local igualmente
         this.limpiarSesion();
         this.router.navigate(['/auth/login']);
       }

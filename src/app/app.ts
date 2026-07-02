@@ -11,3 +11,4 @@ import { ToastComponent } from './core/components/toast/toast';
 export class App {
   protected readonly title = signal('frontend_citas_medicas');
 }
+
