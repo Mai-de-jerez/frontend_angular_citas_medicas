@@ -44,6 +44,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
+        path: 'actualizar-perfil',
+        loadComponent: () => import('./features/users/components/actualizar-perfil/actualizar-perfil').then(m => m.ActualizarPerfil),
+        canActivate: [authGuard]
+      },
+      {
         path: 'mis-citas', 
         loadComponent: () => import('./features/users/components/mis-citas/mis-citas').then(m => m.MisCitasComponent),
         canActivate: [authGuard]

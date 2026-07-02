@@ -20,4 +20,10 @@ export class UserService {
       map(res => res.data) 
     );
   }
+
+  actualizarPerfil(formData: FormData): Observable<PerfilUsuario> {
+    return this.http.post<PerfilResponse>(`${this.apiUrl}/actualizar-perfil`, formData).pipe(
+      map(res => res.data)
+    );
+  }
 }

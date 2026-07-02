@@ -31,6 +31,24 @@
       letter-spacing: -0.02em;
       margin: 0;
     }
+
+    .btn-editar {
+      margin-left: auto; 
+      background: transparent;
+      color: $color-accent;
+      border: 1px solid $color-accent;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: $color-accent;
+        color: white;
+      }
+    }
   }
 
   .grid-info {

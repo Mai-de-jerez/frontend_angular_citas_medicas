@@ -5,6 +5,9 @@
     <div class="header-perfil">
       <img [src]="p.foto_url" alt="Perfil">
       <h1>{{ p.nombre }} {{ p.apellidos }}</h1>
+      <button class="btn-editar" (click)="editarPerfil()">
+        Editar Perfil
+      </button>
     </div>
 
     <div class="grid-info">

@@ -31,3 +31,8 @@ export interface PerfilUsuario {
 export interface PerfilResponse {
   data: PerfilUsuario;
 }
+
+
+
+
+
