@@ -1,0 +1,55 @@
+// shared/components/paginador/paginador.scss
+@use '../../../../styles/variables' as *;
+
+.paginador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid $color-border;
+
+  .info {
+    color: $color-text-secondary;
+    font-size: 0.9rem;
+  }
+
+  .botones {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .btn-pagina {
+    min-width: 36px;
+    height: 36px;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    background: $color-bg-secondary;
+    color: $color-text-primary;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all $transition;
+
+    &:hover:not(:disabled) {
+      background: $color-accent-light;
+      border-color: $color-accent;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background: $color-accent;
+      border-color: $color-accent;
+      color: white;
+    }
+  }
+
+  .puntos {
+    color: $color-text-secondary;
+    padding: 0 0.3rem;
+  }
+}

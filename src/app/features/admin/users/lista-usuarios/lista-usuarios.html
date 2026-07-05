@@ -1,0 +1,80 @@
+<!-- features/admin/users/lista-usuarios/lista-usuarios.html -->
+<div>
+  <div class="barra-superior">
+    <h1>Usuarios</h1>
+    
+    <div class="filtros-group">
+      <app-input-busqueda 
+        label="ID"
+        placeholder="Buscar por ID..."
+        [(value)]="filtros.id"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <app-input-busqueda 
+        label="Nombre"
+        placeholder="Buscar por nombre..."
+        [(value)]="filtros.nombre"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <app-input-busqueda 
+        label="Apellidos"
+        placeholder="Buscar por apellidos..."
+        [(value)]="filtros.apellidos"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <!-- SELECT PARA ROL -->
+      <app-select-busqueda 
+        label="Rol"
+        placeholder="Todos los roles"
+        [opciones]="rolesOpciones"
+        [(value)]="filtros.rol"
+        (seleccion)="aplicarFiltros()"
+      />
+    </div>
+  </div>
+
+  @if (loadingService.isLoading()) {
+    <p>Cargando usuarios...</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Activo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuarios(); track usuario.id) {
+          <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellidos }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.rol }}</td>
+            <td>{{ usuario.activo ? 'Activo' : 'Inactivo' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">No hay usuarios</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    @if (ultimaPagina() > 1) {
+      <app-paginador
+        [paginaActual]="paginaActual()"
+        [ultimaPagina]="ultimaPagina()"
+        [total]="total()"
+        [porPagina]="porPagina()"
+        (cambiarPagina)="cambiarPagina($event)"
+      />
+    }
+  }
+</div>

@@ -1,0 +1,12 @@
+<!-- shared/components/input-busqueda/input-busqueda.html -->
+<div class="input-busqueda">
+  @if (label) {
+    <label>{{ label }}</label>
+  }
+  <input 
+    type="text"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInput($event)"
+  />
+</div>

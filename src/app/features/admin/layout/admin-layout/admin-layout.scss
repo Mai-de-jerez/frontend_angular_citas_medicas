@@ -1,0 +1,53 @@
+// features/admin/layout/admin-layout/admin-layout.component.scss
+
+@use '../../../../../styles/variables' as *;
+
+.admin-layout {
+  min-height: 100vh;
+  background: $color-accent; // 🔵 Fondo principal AZUL
+
+  header {
+    background: $color-bg-secondary; // ⬜ Nav BLANCA
+    color: $color-text-primary;
+    padding: 0 2rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      color: $color-accent; // 🔵 Letras azules
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+
+      a {
+        color: $color-text-primary;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color $transition;
+
+        &:hover {
+          color: $color-accent;
+        }
+
+        &.active {
+          color: $color-accent;
+        }
+      }
+    }
+  }
+
+  main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: white; // Texto blanco sobre fondo azul
+  }
+}

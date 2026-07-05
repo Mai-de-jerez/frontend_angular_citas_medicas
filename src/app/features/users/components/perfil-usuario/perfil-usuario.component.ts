@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../../features/users/services/user.service';
-import { PerfilUsuario } from '../../../../shared/interfaces/perfil.interface';
+import { Usuario } from '../../../../shared/interfaces/usuario.interface';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class PerfilUsuarioComponent implements OnInit {
   private readonly router = inject(Router);
   
   // Solo necesitamos el signal del perfil
-  protected perfil = signal<PerfilUsuario | null>(null);
+  protected perfil = signal<Usuario | null>(null);
 
   // Usamos el signal global del servicio de loading para el HTML
   protected isLoading = this.loadingService.isLoading;

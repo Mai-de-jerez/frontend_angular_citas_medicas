@@ -1,9 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../services/user.service'; // Ajusta la ruta
+import { UserService } from '../../services/user.service'; 
 import { ToastService } from '../../../../core/services/toast.service';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { AuthService } from '../../../auth/services/auth'; 
 
 @Component({
   selector: 'app-actualizar-perfil',
@@ -18,10 +19,15 @@ export class ActualizarPerfil implements OnInit {
   private router = inject(Router);
   private toastService = inject(ToastService);
   private loadingService = inject(LoadingService);
+  private authService = inject(AuthService);
   
   // getter para usar en el HTML
   get cargando(): boolean {
     return this.loadingService.isLoading();
+  }
+  
+  public get esPaciente(): boolean {
+    return this.authService.isPaciente();
   }
 
   form!: FormGroup;
@@ -34,10 +40,10 @@ export class ActualizarPerfil implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.cargarDatosUsuario();
+    this.aplicarValidacionesPorRol();
   }
 
   private initForm(): void {
-    // Al ser edición, los campos ya no son required obligatoriamente si no cambian
     this.form = this.fb.group({
       nombre: ['', [
         Validators.required,
@@ -60,12 +66,10 @@ export class ActualizarPerfil implements OnInit {
         Validators.pattern(/^[0-9+\-\s]{9,15}$/)
       ]],
       compania: ['', [
-        Validators.required, 
         Validators.minLength(3), 
         Validators.maxLength(100)
       ]],
-      numero_tarjeta: ['', [
-        Validators.required, // ← AÑADIDO
+      numero_tarjeta: ['', [ 
         Validators.pattern(/^\d{16}$/)
       ]],
       password:       ['', [
@@ -92,6 +96,33 @@ export class ActualizarPerfil implements OnInit {
     });
   }
 
+  private aplicarValidacionesPorRol(): void {
+    const esPaciente = this.authService.isPaciente();
+
+    if (esPaciente) {
+      this.form.get('compania')?.setValidators([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]);
+      this.form.get('numero_tarjeta')?.setValidators([
+        Validators.required,
+        Validators.pattern(/^\d{16}$/)
+      ]);
+    } else {
+      this.form.get('compania')?.setValidators([
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]);
+      this.form.get('numero_tarjeta')?.setValidators([
+        Validators.pattern(/^\d{16}$/)
+      ]);
+    }
+
+    this.form.get('compania')?.updateValueAndValidity();
+    this.form.get('numero_tarjeta')?.updateValueAndValidity();
+  }
+
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -102,6 +133,9 @@ export class ActualizarPerfil implements OnInit {
     const formData = new FormData();
 
     Object.keys(this.form.controls).forEach(key => {
+      if (!this.authService.isPaciente() && (key === 'compania' || key === 'numero_tarjeta')) {
+        return;
+      }
       const valor = this.form.get(key)?.value;
       if (valor) formData.append(key, valor);
     });
@@ -109,16 +143,16 @@ export class ActualizarPerfil implements OnInit {
     if (this.fotoSeleccionada) formData.append('foto', this.fotoSeleccionada);
 
     this.userService.actualizarPerfil(formData).subscribe({
-      next: () => {
-        this.toastService.success('Perfil actualizado correctamente');
+      next: (res) => {
+        this.toastService.success(res.mensaje);
         this.loadingService.hide();
-        this.router.navigate(['/mi-perfil']); 
+        this.router.navigate(['/mi-perfil']);
       },
       error: () => {
         this.loadingService.hide();
-
+        this.toastService.error('Error al actualizar el perfil. Inténtalo de nuevo.');
       }
-    });
+    }); 
   }
 
   onFotoChange(event: Event): void {

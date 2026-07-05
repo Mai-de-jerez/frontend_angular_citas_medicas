@@ -28,9 +28,9 @@ export class RecuperarPasswordComponent {
     }
 
     this.authService.recuperarPassword({ email: this.form.value.email }).subscribe({
-      next: () => {
-        this.toastService.success('Si el email introducido existe en nuestro sistema, recibirás un enlace para restablecer tu contraseña.');
-        this.form.reset();
+      next: (res) => {
+        this.toastService.success(res.mensaje);
+        this.form.reset(); 
       },
       error: (err) => {
         if (err.status === 422) {

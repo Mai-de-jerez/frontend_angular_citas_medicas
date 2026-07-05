@@ -58,6 +58,8 @@ export class RestablecerPasswordComponent implements OnInit {
       return;
     }
 
+    this.loadingService.show();
+
     const payload = {
       token: this.token,
       password: this.form.value.password,
@@ -65,11 +67,15 @@ export class RestablecerPasswordComponent implements OnInit {
     };
 
     this.authService.restablecerPassword(payload).subscribe({
-      next: () => {
-        this.toastService.success('Contraseña restablecida correctamente. Ya puedes iniciar sesión.');
+      next: (res) => {
+        this.loadingService.hide();
+        this.toastService.success(res.mensaje);
         this.router.navigate(['/auth/login']);
+      },
+      error: () => {
+        this.loadingService.hide();
+        this.toastService.error('No se pudo restablecer la contraseña.');
       }
-
     });
   }
 }

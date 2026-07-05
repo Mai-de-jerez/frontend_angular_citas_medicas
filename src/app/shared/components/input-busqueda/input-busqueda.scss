@@ -1,0 +1,26 @@
+// shared/components/input-busqueda/input-busqueda.scss
+.input-busqueda {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    font-size: 0.95rem;
+    min-width: 150px;
+
+    &:focus {
+      outline: none;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+    }
+  }
+}

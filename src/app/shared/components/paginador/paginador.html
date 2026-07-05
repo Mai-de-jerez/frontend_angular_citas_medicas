@@ -1,0 +1,45 @@
+<!-- shared/components/paginador/paginador.html -->
+@if (ultimaPagina > 1) {
+  <div class="paginador">
+    <div class="info">
+      Mostrando <strong>{{ (paginaActual - 1) * porPagina + 1 }}</strong> - 
+      <strong>{{ ultimoItem }}</strong> 
+      de <strong>{{ total }}</strong> usuarios
+    </div>
+
+    <div class="botones">
+      <!-- Anterior -->
+      <button 
+        class="btn-pagina"
+        [disabled]="paginaActual === 1"
+        (click)="irAPagina(paginaActual - 1)"
+      >
+        ‹
+      </button>
+
+      <!-- Páginas -->
+      @for (pagina of paginas; track $index) {
+        @if (pagina === -1) {
+          <span class="puntos">…</span>
+        } @else {
+          <button 
+            class="btn-pagina"
+            [class.active]="pagina === paginaActual"
+            (click)="irAPagina(pagina)"
+          >
+            {{ pagina }}
+          </button>
+        }
+      }
+
+      <!-- Siguiente -->
+      <button 
+        class="btn-pagina"
+        [disabled]="paginaActual === ultimaPagina"
+        (click)="irAPagina(paginaActual + 1)"
+      >
+        ›
+      </button>
+    </div>
+  </div>
+}

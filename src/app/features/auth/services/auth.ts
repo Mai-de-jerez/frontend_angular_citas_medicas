@@ -6,10 +6,11 @@ import { environment } from '../../../../environments/environment.development';
 import {
   AuthResponse,
   LoginRequest,
+  MensajeResponse,
   RecuperarPasswordRequest,
   RestablecerPasswordRequest,
-  Usuario
 } from '../../../shared/interfaces/auth.interface';
+import { Usuario } from '../../../shared/interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -106,11 +107,11 @@ export class AuthService {
     });
   }
 
-  recuperarPassword(datos: RecuperarPasswordRequest): Observable<{ mensaje: string }> {
-    return this.http.post<{ mensaje: string }>(`${this.apiUrl}/recuperar-password`, datos);
+  recuperarPassword(datos: RecuperarPasswordRequest): Observable<MensajeResponse> {
+    return this.http.post<MensajeResponse>(`${this.apiUrl}/recuperar-password`, datos);
   }
 
-  restablecerPassword(datos: RestablecerPasswordRequest): Observable<{ mensaje: string }> {
-    return this.http.post<{ mensaje: string }>(`${this.apiUrl}/restablecer-password`, datos);
+  restablecerPassword(datos: RestablecerPasswordRequest): Observable<MensajeResponse> {
+    return this.http.post<MensajeResponse>(`${this.apiUrl}/restablecer-password`, datos);
   }
 }
