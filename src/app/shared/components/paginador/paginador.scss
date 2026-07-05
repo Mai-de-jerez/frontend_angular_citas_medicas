@@ -3,26 +3,17 @@
 
 .paginador {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
   margin-top: 1.5rem;
   padding-top: 1rem;
   border-top: 1px solid $color-border;
+  flex-wrap: wrap;
 
-  .info {
-    color: $color-text-secondary;
-    font-size: 0.9rem;
-  }
-
-  .botones {
-    display: flex;
-    gap: 0.3rem;
-    align-items: center;
-  }
-
+  // ============ BOTONES ============
   .btn-pagina {
-    min-width: 36px;
-    height: 36px;
+    padding: 8px 16px;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
     background: $color-bg-secondary;
@@ -30,6 +21,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: all $transition;
+    min-width: 60px;
 
     &:hover:not(:disabled) {
       background: $color-accent-light;
@@ -41,15 +33,48 @@
       cursor: not-allowed;
     }
 
-    &.active {
-      background: $color-accent;
-      border-color: $color-accent;
-      color: white;
+    @media (max-width: 480px) {
+      padding: 6px 12px;
+      min-width: 40px;
+      font-size: 0.8rem;
     }
   }
 
-  .puntos {
+  // ============ TEXTO CENTRAL ============
+  .texto-pagina {
     color: $color-text-secondary;
-    padding: 0 0.3rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+    text-align: center;
+    padding: 0 0.5rem;
+
+    @media (max-width: 480px) {
+      font-size: 0.8rem;
+      min-width: 70px;
+    }
+
+    .total-paginas {
+      color: $color-text-primary;
+      font-weight: 500;
+    }
+  }
+
+  // ============ RESPONSIVE ============
+  .desktop {
+    display: inline;
+  }
+  .mobile {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+
+    .desktop {
+      display: none;
+    }
+    .mobile {
+      display: inline;
+    }
   }
 }

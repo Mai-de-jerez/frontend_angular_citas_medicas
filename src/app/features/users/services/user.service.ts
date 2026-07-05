@@ -30,6 +30,10 @@ export class UserService {
     );
   }
 
+  verUsuario(id: number): Observable<{ usuario: Usuario }> {
+    return this.http.get<{ usuario: Usuario }>(`${this.apiUrl}/admin/usuarios/${id}`);
+  }
+
   listarUsuarios(filtros?: { 
     id?: number;
     rol?: string; 
@@ -47,5 +51,4 @@ export class UserService {
     
     return this.http.get<UsuariosListadoResponse>(`${this.apiUrl}/admin/usuarios`, { params });
   }
-
 }

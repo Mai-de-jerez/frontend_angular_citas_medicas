@@ -1,8 +1,5 @@
 <!-- shared/components/select-busqueda/select-busqueda.html -->
 <div class="select-busqueda">
-  @if (label) {
-    <label>{{ label }}</label>
-  }
   <select [(ngModel)]="value" (ngModelChange)="onCambio()">
     <option value="">{{ placeholder }}</option>
     @for (opcion of opciones; track opcion.value) {

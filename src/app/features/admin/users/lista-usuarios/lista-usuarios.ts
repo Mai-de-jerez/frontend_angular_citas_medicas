@@ -7,6 +7,7 @@ import { UsuarioListado } from '../../../../shared/interfaces/usuario.interface'
 import { InputBusqueda } from '../../../../shared/components/input-busqueda/input-busqueda';
 import { SelectBusqueda } from '../../../../shared/components/select-busqueda/select-busqueda';
 import { Paginador } from '../../../../shared/components/paginador/paginador';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -21,6 +22,8 @@ export class ListaUsuarios implements OnInit {
 
   usuarios = signal<UsuarioListado[]>([]);
   protected loadingService = inject(LoadingService);
+
+  private router = inject(Router);
 
   // filtros de búsqueda
   filtros = {
@@ -73,5 +76,9 @@ export class ListaUsuarios implements OnInit {
   cambiarPagina(page: number): void {
     this.paginaActual.set(page);
     this.cargarUsuarios();
+  }
+
+  verUsuario(id: number): void {
+    this.router.navigate(['/admin/usuarios', id]);
   }
 }

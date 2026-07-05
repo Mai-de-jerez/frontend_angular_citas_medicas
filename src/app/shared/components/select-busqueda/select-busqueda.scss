@@ -2,13 +2,7 @@
 .select-busqueda {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-
-  label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #64748b;
-  }
+  width: 100%;
 
   select {
     padding: 8px 12px;
@@ -16,7 +10,10 @@
     border: 1px solid #e2e8f0;
     background: white;
     font-size: 0.95rem;
-    min-width: 140px;
+    width: 100%;
+    min-width: 120px;
+    max-width: 100%;
+    box-sizing: border-box;
     cursor: pointer;
 
     &:focus {
@@ -24,5 +21,21 @@
       border-color: #0284c7;
       box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
     }
+  }
+
+  @media (max-width: 480px) {
+    select {
+      min-width: 0;
+      font-size: 0.9rem;
+      padding: 6px 10px;
+    }
+  }
+
+  @media (max-width: 978px) {
+    select {
+      padding: 4px 10px !important; 
+      font-size: 0.85rem !important; 
+      min-height: 28px !important;
+    } 
   }
 }

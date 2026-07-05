@@ -40,8 +40,10 @@ export interface Paciente {
 export interface Medico {
   id: number;
   numero_colegiado: string;
-  especialidad: {
-    id: number;
-    nombre: string;
-  };
+  especialidad: Especialidad;
+}
+
+export interface Especialidad {
+  id: number;
+  nombre: string;
 }

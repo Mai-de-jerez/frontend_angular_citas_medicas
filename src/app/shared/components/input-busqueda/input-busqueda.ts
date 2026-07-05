@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './input-busqueda.scss',
 })
 export class InputBusqueda {
-  @Input() label: string = '';
   @Input() placeholder: string = 'Buscar...';
   @Input() value: string = '';
   @Output() valueChange = new EventEmitter<string>();

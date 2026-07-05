@@ -16,7 +16,6 @@ export interface SelectOption {
   styleUrl: './select-busqueda.scss',
 })
 export class SelectBusqueda {
-  @Input() label: string = '';
   @Input() placeholder: string = 'Seleccionar...';
   @Input() opciones: SelectOption[] = [];
   @Input() value: any = '';

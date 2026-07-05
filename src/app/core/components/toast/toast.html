@@ -1,3 +1,4 @@
+<!--core/components/toast/toast.html-->
 <div class="toast-container">
   @for (toast of toastService.toasts(); track toast.id) {
     <div class="toast toast--{{ toast.tipo }}" (click)="toastService.eliminar(toast.id)">

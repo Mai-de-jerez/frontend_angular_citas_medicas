@@ -25,7 +25,6 @@
         (buscar)="aplicarFiltros()"
       />
 
-      <!-- SELECT PARA ROL -->
       <app-select-busqueda 
         label="Rol"
         placeholder="Todos los roles"
@@ -39,34 +38,43 @@
   @if (loadingService.isLoading()) {
     <p>Cargando usuarios...</p>
   } @else {
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Activo</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (usuario of usuarios(); track usuario.id) {
+    <div class="tabla-wrapper">
+      <table>
+        <thead>
           <tr>
-            <td>{{ usuario.id }}</td>
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.apellidos }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.rol }}</td>
-            <td>{{ usuario.activo ? 'Activo' : 'Inactivo' }}</td>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Activo</th>
+            <th>Acciones</th>
           </tr>
-        } @empty {
-          <tr>
-            <td colspan="6">No hay usuarios</td>
-          </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (usuario of usuarios(); track usuario.id) {
+            <tr>
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.apellidos }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.rol }}</td>
+              <td>{{ usuario.activo ? 'Activo' : 'Inactivo' }}</td>
+              <td>
+                <button class="btn-ver" (click)="verUsuario(usuario.id)">
+                  Ver
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7">No hay usuarios</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
     @if (ultimaPagina() > 1) {
       <app-paginador
         [paginaActual]="paginaActual()"

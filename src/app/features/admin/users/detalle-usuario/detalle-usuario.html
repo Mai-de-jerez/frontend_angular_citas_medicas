@@ -1,0 +1,44 @@
+<!-- features/admin/users/detalle-usuario/detalle-usuario.html -->
+<div class="detalle-container">
+  
+
+  @if (isLoading()) {
+    <p>Cargando usuario...</p>
+  } @else if (usuario(); as u) {
+    <div class="perfil-card">
+      <div class="header-perfil">
+        <img [src]="u.foto_url || '/assets/default.png'" alt="Perfil">
+        <h1>{{ u.nombre }} {{ u.apellidos }}</h1>
+        <button class="btn-volver" (click)="volver()">← Volver</button>
+      </div>
+
+      <div class="grid-info">
+        <div class="campo"><label>ID</label><span>{{ u.id }}</span></div>
+        <div class="campo"><label>Email</label><span>{{ u.email }}</span></div>
+        <div class="campo"><label>Teléfono</label><span>{{ u.telefono || 'No disponible' }}</span></div>
+        <div class="campo"><label>Rol</label><span>{{ u.rol }}</span></div>
+        <div class="campo"><label>Estado</label><span>{{ u.activo ? 'Activo' : 'Inactivo' }}</span></div>
+      </div>
+
+      @if (u.medico) {
+        <div class="bloque-clinico">
+          <h3>INFORMACIÓN DE FACULTATIVO</h3>
+          <div class="grid-info">
+            <div class="campo"><label>Nº Colegiado</label><span>{{ u.medico.numero_colegiado }}</span></div>
+            <div class="campo"><label>Especialidad</label><span>{{ u.medico.especialidad.nombre }}</span></div>
+          </div>
+        </div>
+      }
+
+      @if (u.paciente) {
+        <div class="bloque-clinico">
+          <h3>DATOS DE AFILIACIÓN</h3>
+          <div class="grid-info">
+            <div class="campo"><label>Nº Tarjeta</label><span>{{ u.paciente.numero_tarjeta }}</span></div>
+            <div class="campo"><label>Compañía</label><span>{{ u.paciente.compania }}</span></div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
