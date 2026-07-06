@@ -1,1 +1,11 @@
-<p>crear-usuario works!</p>
+<div class="crear-user-container">
+    <div class="crear-user-card">
+  <h1 class="crear-user-title">Crear Usuario</h1> 
+  <app-user-form
+    [esAdmin]="true"
+    [textoBoton]="'Crear usuario'"
+    [cargando]="loadingService.isLoading()"
+    (formSubmit)="onFormSubmit($event)"
+    (cancelar)="volver()"
+  />
+</div>

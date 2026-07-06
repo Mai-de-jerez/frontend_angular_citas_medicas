@@ -58,7 +58,7 @@
       gap: 1rem;
       flex-shrink: 0;
 
-      .btn-accion {
+      .btn-crear {
         padding: 0.5rem 1.2rem;
         background: $color-accent;
         color: white;
@@ -72,23 +72,6 @@
 
         &:hover {
           background: $color-accent-hover;
-        }
-      }
-
-      .btn-crear {
-        padding: 0.5rem 1.2rem;
-        background: #0284c7;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
-        white-space: nowrap;
-
-        &:hover {
-          background: #0369a1;
         }
       }
 
@@ -148,7 +131,7 @@
         flex-wrap: wrap;
         gap: 0.5rem;
 
-        .btn-accion,
+        .btn-crear,
         .btn-logout {
           font-size: 0.75rem;
           padding: 0.4rem 0.8rem;

@@ -14,9 +14,9 @@
     <input id="foto" type="file" accept="image/jpeg,image/png,image/jpg,image/webp" (change)="onFotoChange($event)" hidden />
   </div>
 
+  <!-- Nombre y apellidos -->
   <div class="form-row">
     <div class="form-group">
-      <label for="nombre">Nombre</label>
       <input id="nombre" type="text" formControlName="nombre" placeholder="Tu nombre" />
       @if (form.get('nombre')?.touched) {
         @if (form.get('nombre')?.hasError('required')) {
@@ -30,7 +30,6 @@
     </div>
 
     <div class="form-group">
-      <label for="apellidos">Apellidos</label>
       <input id="apellidos" type="text" formControlName="apellidos" placeholder="Tus apellidos" />
       @if (form.get('apellidos')?.touched) {
         @if (form.get('apellidos')?.hasError('required')) {
@@ -44,8 +43,8 @@
     </div>
   </div>
 
+  <!-- Email -->
   <div class="form-group">
-    <label for="email">Email</label>
     <input id="email" type="email" formControlName="email" placeholder="tu@email.com" />
     @if (form.get('email')?.touched) {
       @if (form.get('email')?.hasError('required')) {
@@ -56,37 +55,14 @@
     }
   </div>
 
-  <div class="form-row">
-    <div class="form-group">
-      <label for="telefono">Teléfono (opcional)</label>
-      <input id="telefono" type="tel" formControlName="telefono" placeholder="600 000 000" />
-    </div>
-    <div class="form-group">
-      <label for="compania">Compañía</label>
-      <input id="compania" type="text" formControlName="compania" placeholder="Tu compañía" />
-      @if (form.get('compania')?.touched && form.get('compania')?.hasError('required')) {
-        <span class="error">Campo obligatorio</span>
-      }
-    </div>
-  </div>
-
+  <!-- Teléfono -->
   <div class="form-group">
-    <label for="numero_tarjeta">Número Tarjeta</label>
-    <input id="numero_tarjeta" type="text" formControlName="numero_tarjeta" placeholder="Ej: 1234567890123456" />
-    
-    @if (form.get('numero_tarjeta')?.touched) {
-      @if (form.get('numero_tarjeta')?.hasError('required')) {
-        <span class="error">Campo obligatorio</span>
-      } @else if (form.get('numero_tarjeta')?.hasError('pattern')) {
-        <span class="error">Debe contener exactamente 16 números (sin guiones ni espacios)</span>
-      }
-    }
+    <input id="telefono" type="tel" formControlName="telefono" placeholder="Tu teléfono" />
   </div>
-
+  <!-- Contraseñas -->
   <div class="form-row">
     <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input id="password" type="password" formControlName="password" placeholder="••••••••" autocomplete="new-password"/>
+      <input id="password" type="password" formControlName="password" placeholder="Tu password" autocomplete="new-password"/>
       @if (form.get('password')?.touched) {
         @if (form.get('password')?.hasError('required')) {
           <span class="error">Campo obligatorio</span>
@@ -99,8 +75,7 @@
     </div>
 
     <div class="form-group">
-      <label for="password_confirmation">Confirmar contraseña</label>
-      <input id="password_confirmation" type="password" formControlName="password_confirmation" placeholder="••••••••" autocomplete="new-password"/>
+      <input id="password_confirmation" type="password" formControlName="password_confirmation" placeholder="Confirmar password" autocomplete="new-password"/>
       @if (form.get('password_confirmation')?.touched) {
         @if (form.get('password_confirmation')?.hasError('required')) {
           <span class="error">Campo obligatorio</span>
@@ -110,27 +85,72 @@
       }
     </div>
   </div>
-
+  <!-- Rol (solo si es admin) -->
   @if (esAdmin()) {
+    <div class="form-group">
+      <select id="rol" formControlName="rol">
+        <option value="paciente">Paciente</option>
+        <option value="medico">Médico</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+  } 
+
+  <!-- PACIENTE (siempre en registro o si admin elige paciente) -->
+  @if (!esAdmin() || form.get('rol')?.value === 'paciente') {
     <div class="form-row">
       <div class="form-group">
-        <label for="rol">Rol</label>
-        <select id="rol" formControlName="rol">
-          <option value="paciente">Paciente</option>
-          <option value="medico">Médico</option>
-          <option value="admin">Admin</option>
-        </select>
+        <input id="compania" type="text" formControlName="compania" placeholder="Tu compañía" />
+        @if (form.get('compania')?.touched && form.get('compania')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        }
       </div>
-
-      <div class="form-group form-group--checkbox">
-        <label class="checkbox-label">
-          <input type="checkbox" formControlName="activo" />
-          <span>Usuario activo</span>
-        </label>
+      <div class="form-group">
+        <input id="numero_tarjeta" type="text" formControlName="numero_tarjeta" placeholder="Tu número de tarjeta (16 dígitos)" />
+        @if (form.get('numero_tarjeta')?.touched && form.get('numero_tarjeta')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        }
+        @if (form.get('numero_tarjeta')?.touched && form.get('numero_tarjeta')?.hasError('pattern')) {
+          <span class="error">Debe tener 16 dígitos</span>
+        }
       </div>
     </div>
   }
 
+  <!-- MÉDICO (si admin elige médico) -->
+  @if (esAdmin() && form.get('rol')?.value === 'medico') {
+    <div class="form-row">
+      <div class="form-group">
+        <input id="numero_colegiado" type="text" formControlName="numero_colegiado" placeholder="COL-12345" />
+        @if (form.get('numero_colegiado')?.touched && form.get('numero_colegiado')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <select id="id_especialidad" formControlName="id_especialidad">
+          <option value="">Seleccionar especialidad...</option>
+          @for (esp of especialidades(); track esp.id) {
+            <option [value]="esp.id">{{ esp.nombre }}</option>
+          }
+        </select>
+        @if (form.get('id_especialidad')?.touched && form.get('id_especialidad')?.hasError('required')) {
+          <span class="error">Campo obligatorio</span>
+        }
+      </div>
+    </div>  
+  }
+
+  @if (esAdmin()) {
+    <!-- Admin decide también si el usuario está activo -->
+    <div class="form-group form-group--checkbox">
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="activo" />
+        <span>Usuario activo</span>
+      </label>
+    </div>
+  }
+
+  <!-- Botones de acción -->
   <div class="form-actions">
     <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
     <button type="submit" [disabled]="cargando()">

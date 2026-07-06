@@ -68,4 +68,11 @@ export class UserService {
     
     return this.http.get<UsuariosListadoResponse>(`${this.apiUrl}/admin/usuarios`, { params });
   }
+
+  crearUsuario(formData: FormData): Observable<{ mensaje: string; usuario: Usuario }> {
+    return this.http.post<{ mensaje: string; usuario: Usuario }>(
+      `${this.apiUrl}/admin/usuarios`,
+      formData
+    );
+  }
 }
