@@ -47,7 +47,12 @@ export class ListaUsuarios implements OnInit {
   porPagina = signal<number>(15);
 
   ngOnInit(): void {
+    this.userService.setBotonAdmin('+ Crear usuario', '/admin/usuarios/crear');
     this.cargarUsuarios();
+  }
+
+  ngOnDestroy(): void {
+    this.userService.limpiarBotonAdmin();
   }
 
   cargarUsuarios(): void {

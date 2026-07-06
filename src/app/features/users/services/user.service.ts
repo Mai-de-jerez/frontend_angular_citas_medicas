@@ -1,6 +1,6 @@
 // src/app/features/user/services/user.service.ts
 
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,23 @@ import { Usuario, UsuariosListadoResponse } from '../../../shared/interfaces/usu
 export class UserService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl;
+
+  // Boton dinamico para el layout de admin
+  private botonAdminSignal = signal<{ texto: string; ruta: string; mostrar: boolean }>({
+    texto: '',
+    ruta: '',
+    mostrar: false
+  });
+
+  botonAdmin = this.botonAdminSignal.asReadonly();
+
+  setBotonAdmin(texto: string, ruta: string): void {
+    this.botonAdminSignal.set({ texto, ruta, mostrar: true });
+  }
+
+  limpiarBotonAdmin(): void {
+    this.botonAdminSignal.set({ texto: '', ruta: '', mostrar: false });
+  }
 
   miPerfil(): Observable<Usuario> { 
     return this.http.get<PerfilResponse>(`${this.apiUrl}/mi-perfil`).pipe(

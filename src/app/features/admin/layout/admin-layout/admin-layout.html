@@ -1,10 +1,22 @@
 <div class="admin-layout">
   <header>
-    <h1>Panel de Administración</h1>
-    <nav>
-      <a routerLink="/admin/usuarios" routerLinkActive="active">Usuarios</a>
-      <!-- Más enlaces aquí -->
-    </nav>
+    <div class="header-left">
+      <h1>Panel de Administración</h1>
+      <nav>
+        <a routerLink="/admin/usuarios" routerLinkActive="active">Usuarios</a>
+        <a routerLink="/admin/citas" routerLinkActive="active">Citas</a>
+        <a routerLink="/admin/especialidades" routerLinkActive="active">Especialidades</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      @if (userService.botonAdmin().mostrar) { 
+        <button class="btn-crear" [routerLink]="userService.botonAdmin().ruta">
+          {{ userService.botonAdmin().texto }}
+        </button>
+      }
+      <button class="btn-logout" (click)="onLogout()">Cerrar sesión</button>
+    </div>
   </header>
 
   <main>
