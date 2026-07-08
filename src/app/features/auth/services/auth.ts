@@ -75,6 +75,11 @@ export class AuthService {
     }
   }
 
+  actualizarUsuario(usuario: Usuario): void {
+    this.#usuario.set(usuario);
+    sessionStorage.setItem('usuario', JSON.stringify(usuario));
+  }
+
   register(formData: FormData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData).pipe(
       tap(res => {

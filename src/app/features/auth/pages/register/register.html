@@ -3,7 +3,6 @@
       <h1 class="register-title">Registro</h1>
       <app-user-form
         [textoBoton]="'Registrarse'"
-        [cargando]="loadingService.isLoading()"
         (formSubmit)="onFormSubmit($event)"
         (cancelar)="onCancelar()"
       />

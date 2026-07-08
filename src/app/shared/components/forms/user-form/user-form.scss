@@ -1,4 +1,4 @@
-@use '../../../../styles/variables' as *;
+@use '../../../../../styles/variables' as *;
 
 form {
   display: flex;
@@ -85,14 +85,8 @@ form {
   flex-direction: column;
   gap: 0.4rem;
 
-  label {
-    color: #6b7280;
-    font-size: 0.8rem;
-    font-weight: 600;
-    display: block;
-  }
 
-  input, select {
+  input {
     width: 100%;
     background: #f9fafb;
     border: 1px solid #d1d5db;
@@ -118,25 +112,6 @@ form {
     font-size: 0.75rem;
   }
 
-  &--checkbox {
-    justify-content: flex-end;
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      color: #6b7280;
-      font-size: 0.9rem;
-
-      input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-        accent-color: $color-accent;
-        padding: 0;
-      }
-    }
-  }
 }
 
 button {

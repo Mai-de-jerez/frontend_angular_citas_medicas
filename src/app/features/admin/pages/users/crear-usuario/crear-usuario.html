@@ -1,0 +1,12 @@
+<div class="crear-user-container">
+  <div class="crear-user-card">
+    <h1 class="crear-user-title">Crear Usuario</h1>
+
+    <app-user-form-admin
+      [textoBoton]="'Crear usuario'"
+      [cargando]="loadingService.isLoading()"
+      (formSubmit)="onFormSubmit($event)"
+      (cancelar)="volver()"
+    />
+  </div>
+</div>

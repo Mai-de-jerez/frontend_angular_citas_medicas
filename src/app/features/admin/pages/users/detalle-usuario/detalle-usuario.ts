@@ -2,9 +2,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../../users/services/user.service';
-import { Usuario } from '../../../../shared/interfaces/usuario.interface';
-import { LoadingService } from '../../../../core/services/loading.service';
+import { UserService } from '../../../../users/services/user.service';
+import { Usuario } from '../../../../../shared/interfaces/usuario.interface';
+import { LoadingService } from '../../../../../core/services/loading.service';
 
 @Component({
   selector: 'app-detalle-usuario',

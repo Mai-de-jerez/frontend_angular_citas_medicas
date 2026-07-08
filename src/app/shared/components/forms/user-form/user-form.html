@@ -1,5 +1,4 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-
   <div class="avatar-upload">
     <div class="avatar-preview">
       @if (fotoPreview()) {
@@ -85,19 +84,9 @@
       }
     </div>
   </div>
-  <!-- Rol (solo si es admin) -->
-  @if (esAdmin()) {
-    <div class="form-group">
-      <select id="rol" formControlName="rol">
-        <option value="paciente">Paciente</option>
-        <option value="medico">Médico</option>
-        <option value="admin">Admin</option>
-      </select>
-    </div>
-  } 
 
-  <!-- PACIENTE (siempre en registro o si admin elige paciente) -->
-  @if (!esAdmin() || form.get('rol')?.value === 'paciente') {
+  <!-- campos para la relación con la tabla pacientes  -->
+  @if (esPaciente()) {
     <div class="form-row">
       <div class="form-group">
         <input id="compania" type="text" formControlName="compania" placeholder="Tu compañía" />
@@ -115,46 +104,12 @@
         }
       </div>
     </div>
-  }
-
-  <!-- MÉDICO (si admin elige médico) -->
-  @if (esAdmin() && form.get('rol')?.value === 'medico') {
-    <div class="form-row">
-      <div class="form-group">
-        <input id="numero_colegiado" type="text" formControlName="numero_colegiado" placeholder="COL-12345" />
-        @if (form.get('numero_colegiado')?.touched && form.get('numero_colegiado')?.hasError('required')) {
-          <span class="error">Campo obligatorio</span>
-        }
-      </div>
-      <div class="form-group">
-        <select id="id_especialidad" formControlName="id_especialidad">
-          <option value="">Seleccionar especialidad...</option>
-          @for (esp of especialidades(); track esp.id) {
-            <option [value]="esp.id">{{ esp.nombre }}</option>
-          }
-        </select>
-        @if (form.get('id_especialidad')?.touched && form.get('id_especialidad')?.hasError('required')) {
-          <span class="error">Campo obligatorio</span>
-        }
-      </div>
-    </div>  
-  }
-
-  @if (esAdmin()) {
-    <!-- Admin decide también si el usuario está activo -->
-    <div class="form-group form-group--checkbox">
-      <label class="checkbox-label">
-        <input type="checkbox" formControlName="activo" />
-        <span>Usuario activo</span>
-      </label>
-    </div>
-  }
-
+   }
   <!-- Botones de acción -->
   <div class="form-actions">
     <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
-    <button type="submit" [disabled]="cargando()">
-      {{ cargando() ? 'Guardando...' : textoBoton() }}
+    <button type="submit" [disabled]="loadingService.isLoading()">
+      {{ loadingService.isLoading() ? 'Guardando...' : textoBoton() }}
     </button>
   </div>
 

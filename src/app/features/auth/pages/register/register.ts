@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth';
-import { LoadingService } from '../../../../core/services/loading.service';
-import { UserFormComponent } from '../../../../shared/components/user-form/user-form';
+import { UserFormComponent } from '../../../../shared/components/forms/user-form/user-form';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-  protected loadingService = inject(LoadingService);
 
   onCancelar(): void {
     this.router.navigate(['/auth/login']);

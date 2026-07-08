@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../../users/services/user.service';
-import { LoadingService } from '../../../../core/services/loading.service';
-import { UsuarioListado } from '../../../../shared/interfaces/usuario.interface';
-import { InputBusqueda } from '../../../../shared/components/input-busqueda/input-busqueda';
-import { SelectBusqueda } from '../../../../shared/components/select-busqueda/select-busqueda';
-import { Paginador } from '../../../../shared/components/paginador/paginador';
+import { UserService } from '../../../../users/services/user.service';
+import { LoadingService } from '../../../../../core/services/loading.service';
+import { UsuarioListado } from '../../../../../shared/interfaces/usuario.interface';
+import { InputBusqueda } from '../../../../../shared/components/input-busqueda/input-busqueda';
+import { SelectBusqueda } from '../../../../../shared/components/select-busqueda/select-busqueda';
+import { Paginador } from '../../../../../shared/components/paginador/paginador';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,0 +1,14 @@
+<!-- features/users/components/actualizar-perfil/actualizar-perfil.html -->
+
+<div class="editar-perfil-container">
+  <div class="editar-perfil-card">
+    <h1 class="editar-perfil-title">Editar Perfil</h1>
+
+    <app-user-form
+      [usuario]="usuario()"
+      [textoBoton]="'Guardar Cambios'"
+      (formSubmit)="onFormSubmit($event)"
+      (cancelar)="onCancelar()"
+    />
+  </div>
+</div>

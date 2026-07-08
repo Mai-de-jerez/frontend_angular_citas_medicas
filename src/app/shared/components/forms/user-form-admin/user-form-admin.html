@@ -1,0 +1,136 @@
+<!-- shared/components/forms/user-form-admin/user-form-admin.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+  <!-- FOTO -->
+  <div class="avatar-upload">
+    <div class="avatar-preview">
+      @if (fotoPreview()) {
+        <img [src]="fotoPreview()" alt="Preview foto" />
+      } @else {
+        <span class="avatar-placeholder">📷</span>
+      }
+    </div>
+    <label for="foto" class="avatar-label">
+      {{ fotoPreview() ? 'Cambiar foto' : 'Subir foto' }}
+    </label>
+    <input id="foto" type="file" accept="image/jpeg,image/png,image/jpg,image/webp" (change)="onFotoChange($event)" hidden />
+  </div>
+
+  <!-- NOMBRE Y APELLIDOS -->
+  <div class="form-row">
+    <div class="form-group">
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Nombre *" />
+      @if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
+        <span class="error">Campo obligatorio (mínimo 3 caracteres, solo letras)</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <input id="apellidos" type="text" formControlName="apellidos" placeholder="Apellidos *" />
+      @if (form.get('apellidos')?.touched && form.get('apellidos')?.invalid) {
+        <span class="error">Campo obligatorio (mínimo 3 caracteres, solo letras)</span>
+      }
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+    <input id="email" type="email" formControlName="email" placeholder="Email *" />
+    @if (form.get('email')?.touched && form.get('email')?.invalid) {
+      <span class="error">Email obligatorio y válido</span>
+    }
+  </div>
+
+  <!-- TELÉFONO -->
+  <div class="form-group">
+    <input id="telefono" type="tel" formControlName="telefono" placeholder="Teléfono" />
+  </div>
+
+  <!-- ROL -->
+  <div class="form-group">
+    <label for="rol">Rol *</label>
+    <select id="rol" formControlName="rol">
+      <option value="paciente">Paciente</option>
+      <option value="medico">Médico</option>
+      <option value="admin">Administrador</option>
+    </select>
+  </div>
+
+  <!-- PACIENTE -->
+  @if (form.get('rol')?.value === 'paciente') {
+    <div class="form-row">
+      <div class="form-group">
+        <input id="compania" type="text" formControlName="compania" placeholder="Compañía *" />
+        @if (form.get('compania')?.touched && form.get('compania')?.invalid) {
+          <span class="error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <input id="numero_tarjeta" type="text" formControlName="numero_tarjeta" placeholder="Nº Tarjeta (16 dígitos) *" />
+        @if (form.get('numero_tarjeta')?.touched && form.get('numero_tarjeta')?.invalid) {
+          <span class="error">Campo obligatorio (16 dígitos)</span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- MÉDICO -->
+  @if (form.get('rol')?.value === 'medico') {
+    <div class="form-row">
+      <div class="form-group">
+        <input id="numero_colegiado" type="text" formControlName="numero_colegiado" placeholder="Nº Colegiado *" />
+        @if (form.get('numero_colegiado')?.touched && form.get('numero_colegiado')?.invalid) {
+          <span class="error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <select id="id_especialidad" formControlName="id_especialidad">
+          <option value="">Seleccionar especialidad *</option>
+          @for (esp of especialidades(); track esp.id) {
+            <option [value]="esp.id">{{ esp.nombre }}</option>
+          }
+        </select>
+        @if (form.get('id_especialidad')?.touched && form.get('id_especialidad')?.invalid) {
+          <span class="error">Campo obligatorio</span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- CONTRASEÑA (si es edición, es opcional) -->
+  <div class="form-row">
+    <div class="form-group">
+      <input id="password" type="password" formControlName="password" 
+             [placeholder]="esEdicion() ? 'Nueva contraseña (opcional)' : 'Contraseña *'" 
+             autocomplete="new-password" />
+      @if (form.get('password')?.touched && form.get('password')?.invalid) {
+        <span class="error">Mínimo 8 caracteres, mayúsculas, minúsculas y números</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <input id="password_confirmation" type="password" formControlName="password_confirmation" 
+             [placeholder]="esEdicion() ? 'Confirmar nueva contraseña (opcional)' : 'Confirmar contraseña *'" 
+             autocomplete="new-password" />
+      @if (form.get('password_confirmation')?.touched && form.hasError('passwordMismatch')) {
+        <span class="error">Las contraseñas no coinciden</span>
+      }
+    </div>
+  </div>
+
+  <!-- ACTIVO -->
+  <div class="form-group form-group--checkbox">
+    <label class="checkbox-label">
+      <input type="checkbox" formControlName="activo" />
+      <span>Usuario activo</span>
+    </label>
+  </div>
+
+  <!-- BOTONES -->
+  <div class="form-actions">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" [disabled]="cargando()">
+      {{ cargando() ? 'Guardando...' : textoBoton() }}
+    </button>
+  </div>
+</form>
