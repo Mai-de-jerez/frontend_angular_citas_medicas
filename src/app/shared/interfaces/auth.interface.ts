@@ -24,6 +24,7 @@ export interface RecuperarPasswordRequest {
 
 export interface RestablecerPasswordRequest {
   token: string;
+  email: string;
   password: string;
   password_confirmation: string;
 }

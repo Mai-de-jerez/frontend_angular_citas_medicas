@@ -21,12 +21,14 @@ export class RestablecerPasswordComponent implements OnInit {
 
   form!: FormGroup;
   private token: string = '';
+  private email: string = '';
 
   ngOnInit(): void {
     // Pillamos el token que viene en la URL (?token=xxxx)
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
+    this.email = this.route.snapshot.queryParamMap.get('email') || '';
 
-    if (!this.token) {
+    if (!this.token || !this.email) {
       this.toastService.error('Falta el token de recuperación o no es válido.');
       this.router.navigate(['/auth/login']);
       return;
@@ -62,6 +64,7 @@ export class RestablecerPasswordComponent implements OnInit {
 
     const payload = {
       token: this.token,
+      email: this.email,
       password: this.form.value.password,
       password_confirmation: this.form.value.password_confirmation
     };
