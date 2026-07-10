@@ -10,6 +10,7 @@
         <img [src]="u.foto_url || '/assets/default.png'" alt="Perfil">
         <h1>{{ u.nombre }} {{ u.apellidos }}</h1>
         <button class="btn-volver" (click)="volver()">← Volver</button>
+        <button class="btn-editar" (click)="irAEditar()">✎ Editar</button>
       </div>
 
       <div class="grid-info">

@@ -1,0 +1,28 @@
+@use '../../../../../../styles/variables' as *;
+
+.editar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  font-family: sans-serif;
+
+  .editar-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 560px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    .editar-title {
+      color: #111827;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  }
+}

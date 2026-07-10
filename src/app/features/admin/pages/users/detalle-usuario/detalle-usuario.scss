@@ -41,18 +41,21 @@
       margin: 0;
       flex: 1;
     }
-
-    .btn-volver {
+    
+    .btn-volver, .btn-editar {
       background: transparent;
       color: $color-accent;
       border: 1px solid $color-accent;
-      padding: 0.6rem 1.2rem;
+      padding: 0 1.2rem; // 👈 Quita el padding vertical
       border-radius: 4px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
+      height: 35px; // 👈 Altura fija
+      display: inline-flex;
+      align-items: center;
 
       &:hover {
         background: $color-accent;
@@ -117,7 +120,7 @@
     align-items: center !important;
     text-align: center;
 
-    .btn-volver {
+    .btn-volver, .btn-editar {
       margin-top: 0.5rem;
     }
   }

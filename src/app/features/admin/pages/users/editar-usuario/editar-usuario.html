@@ -1,0 +1,17 @@
+<div class="editar-container">
+  <div class="editar-card">
+    <h1 class="editar-title">Editar Usuario</h1>
+
+    @if (cargando()) {
+      <p>Cargando usuario...</p>
+    } @else {
+      <app-user-form-admin
+        [usuario]="usuario()"
+        [textoBoton]="'Actualizar usuario'"
+        [cargando]="loadingService.isLoading()"
+        (formSubmit)="onFormSubmit($event)"
+        (cancelar)="volver()"
+      />
+    }
+  </div>
+</div>

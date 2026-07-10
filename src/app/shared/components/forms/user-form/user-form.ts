@@ -33,6 +33,13 @@ export class UserFormComponent implements OnInit {
     const u = this.usuario();
     return u?.rol === 'paciente';
   });
+  // computed() property determina si se deben mostrar los campos específicos de paciente
+  mostrarCamposPaciente = computed(() => {
+    if (this.esEdicion()) {
+      return this.esPaciente();
+    }
+    return true; // en registro siempre mostramos
+  });
   // constantes para validación de la foto
   private readonly TIPOS_PERMITIDOS = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
   private readonly TAMANO_MAXIMO = 2 * 1024 * 1024;
@@ -41,7 +48,7 @@ export class UserFormComponent implements OnInit {
   form: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern(/^[\p{L}\s]+$/u)]],
     apellidos: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150), Validators.pattern(/^[\p{L}\s]+$/u)]],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-ñÑ]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
     password: ['', [Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)]],
     password_confirmation: [''],
     telefono: [''],
@@ -56,13 +63,34 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // si es edición, quitamos required de la contraseña
     if (this.esEdicion()) {
-      this.form.get('password')?.clearValidators();
-      this.form.get('password_confirmation')?.clearValidators();
+      // para mantener validaciones de formato
+      const passwordControl = this.form.get('password');
+      const confirmControl = this.form.get('password_confirmation');
+      
+      // quitar required pero mantener el resto
+      passwordControl?.setValidators([
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
+      ]);
+      confirmControl?.clearValidators();
     } else {
-      this.form.get('password')?.setValidators([Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)]);
+      this.form.get('password')?.setValidators([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
+      ]);
       this.form.get('password_confirmation')?.setValidators([Validators.required]);
+      
+      this.form.get('compania')?.setValidators([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]);
+      this.form.get('numero_tarjeta')?.setValidators([
+        Validators.required,
+        Validators.pattern(/^\d{16}$/)
+      ]);
     }
 
     this.form.get('password')?.updateValueAndValidity();
@@ -156,7 +184,7 @@ export class UserFormComponent implements OnInit {
     }
 
     // solo para pacientes, agregamos los campos de la relación con la tabla pacientes
-    if (this.esPaciente()) {
+    if (this.mostrarCamposPaciente()) {
       formData.append('numero_tarjeta', valores.numero_tarjeta);
       formData.append('compania', valores.compania);
     }

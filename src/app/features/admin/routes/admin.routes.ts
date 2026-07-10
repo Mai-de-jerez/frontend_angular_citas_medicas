@@ -25,6 +25,11 @@ export const ADMIN_ROUTES: Routes = [
         path: 'usuarios/:id',
         loadComponent: () => import('../pages/users/detalle-usuario/detalle-usuario')
           .then(m => m.DetalleUsuario)
+      },
+      {
+        path: 'usuarios/editar/:id',
+        loadComponent: () => import('../pages/users/editar-usuario/editar-usuario')
+          .then(m => m.EditarUsuario)  
       }
     ]
   }

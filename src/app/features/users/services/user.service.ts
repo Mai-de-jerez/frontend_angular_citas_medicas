@@ -75,4 +75,11 @@ export class UserService {
       formData
     );
   }
+
+  actualizarUsuario(id: number, formData: FormData): Observable<{ mensaje: string; usuario: Usuario }> {
+    return this.http.post<{ mensaje: string; usuario: Usuario }>(
+      `${this.apiUrl}/admin/usuarios/${id}`,
+      formData
+    );
+  }
 }

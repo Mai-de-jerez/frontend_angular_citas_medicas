@@ -39,7 +39,7 @@ export class UserFormAdmin implements OnInit {
   form: FormGroup = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern(/^[\p{L}\s]+$/u)]],
     apellidos: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150), Validators.pattern(/^[\p{L}\s]+$/u)]],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-ñÑ]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
     password: ['', [Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)]],
     password_confirmation: [''],
     telefono: [''],
@@ -169,7 +169,10 @@ export class UserFormAdmin implements OnInit {
     formData.append('nombre', v.nombre);
     formData.append('apellidos', v.apellidos);
     formData.append('email', v.email);
-    formData.append('rol', v.rol);
+    //formData.append('rol', v.rol);
+    if (!this.esEdicion()) {
+      formData.append('rol', v.rol);
+    }
     formData.append('activo', v.activo ? '1' : '0');
     if (v.telefono) formData.append('telefono', v.telefono);
 

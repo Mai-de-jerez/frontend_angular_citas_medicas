@@ -32,11 +32,15 @@ export class DetalleUsuario implements OnInit {
     this.userService.verUsuario(id).subscribe({
       next: (res) => {
         this.usuario.set(res.usuario);
-      },
-      error: () => {
-        // El error interceptor ya muestra el toast
       }
     });
+  }
+
+  irAEditar(): void {
+    const userId = this.usuario()?.id;
+    if (userId) {
+      this.router.navigate(['/admin/usuarios/editar', userId]);
+    }
   }
 
   volver(): void {
