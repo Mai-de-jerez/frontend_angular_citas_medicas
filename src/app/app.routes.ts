@@ -52,12 +52,17 @@ export const routes: Routes = [
         path: 'mis-citas', 
         loadComponent: () => import('./features/users/pages/mis-citas/mis-citas').then(m => m.MisCitasComponent),
         canActivate: [authGuard]
+      },
+      {
+        path: 'mis-horarios',
+        loadComponent: () => import('./features/users/pages/mis-horarios/mis-horarios').then(m => m.MisHorariosComponent),
+        canActivate: [authGuard]
       }
     ]
   },
   {
     path: 'admin',
     loadChildren: () => import('./features/admin/routes/admin.routes').then(m => m.ADMIN_ROUTES),
-    // canActivate: [adminGuard] // Cuando lo tengas, descomenta esto
+    // canActivate: [adminGuard] // guard en proceso
   }
 ];

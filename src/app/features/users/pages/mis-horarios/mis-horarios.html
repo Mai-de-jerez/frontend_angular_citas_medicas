@@ -1,0 +1,42 @@
+<div class="horario-semanal-container">
+  <h2>Mi Horario Semanal</h2>
+
+  @if (isLoading()) {
+    <div class="loading-spinner">Cargando horario...</div>
+  }
+
+  @if (!isLoading() && disponibilidad()) {
+    <div class="table-responsive">
+      <table class="horario-table">
+        <thead>
+          <tr>
+            <th>Hora</th>
+            @for (dia of diasSemana; track dia) {
+              <th>{{ dia | titlecase }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (fila of disponibilidad(); track fila.hora) {
+            <tr>
+              <td class="hora-label">{{ fila.hora }}</td>
+              @for (celda of fila.dias; track celda.dia) {
+                <td [class.ocupado]="celda.disponible" [class.libre]="!celda.disponible">
+                  @if (celda.disponible) {
+                    <span class="check">✅</span>
+                  } @else {
+                    <span class="cross">❌</span>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (!isLoading() && horarios() === null) {
+    <div class="error-message">No se pudo cargar el horario.</div>
+  }
+</div>

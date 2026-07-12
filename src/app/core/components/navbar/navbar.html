@@ -45,6 +45,12 @@
           <a routerLink="/mi-perfil" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Mi Perfil</a>
         </li>
       }
+      <!-- enlace solo para médicos -->
+      @if (authService.isMedico()) {
+        <li class="nav-item">
+          <a routerLink="/mis-horarios" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Mis Horarios</a>
+        </li>
+      }
 
       <li class="nav-item">
         <a class="nav-link nav-link-logout" (click)="onLogout()" style="cursor: pointer;">Logout</a>
