@@ -30,7 +30,12 @@ export const ADMIN_ROUTES: Routes = [
         path: 'usuarios/editar/:id',
         loadComponent: () => import('../pages/users/editar-usuario/editar-usuario')
           .then(m => m.EditarUsuario)  
-      }
+      },
+      {
+        path: 'citas',
+        loadComponent: () => import('../pages/citas/listar-citas/listar-citas')
+          .then(m => m.ListarCitas)
+      },
     ]
   }
 ];

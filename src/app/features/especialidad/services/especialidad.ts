@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { Especialidad } from '../../../shared/interfaces/usuario.interface';
 
@@ -14,6 +14,7 @@ export class EspecialidadService {
   private apiUrl = environment.apiUrl;
 
   listar(): Observable<Especialidad[]> {
-    return this.http.get<Especialidad[]>(`${this.apiUrl}/especialidades`);
+    return this.http.get<{ especialidades: Especialidad[] }>(`${this.apiUrl}/especialidades`)
+      .pipe(map(resp => resp.especialidades));
   }
 }

@@ -1,0 +1,89 @@
+<div>
+  <div class="barra-superior">
+    <h1>Citas Médicas</h1>
+    
+    <div class="filtros-group">
+      <app-input-busqueda 
+        label="ID Cita"
+        placeholder="Buscar por ID..."
+        [(value)]="filtros.id"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <app-input-busqueda 
+        label="ID Paciente"
+        placeholder="Buscar por paciente..."
+        [(value)]="filtros.id_paciente"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <app-input-busqueda 
+        label="ID Médico"
+        placeholder="Buscar por médico..."
+        [(value)]="filtros.id_medico"
+        (buscar)="aplicarFiltros()"
+      />
+
+      <app-select-busqueda 
+        label="Estado"
+        placeholder="Todos los estados"
+        [opciones]="estadosOpciones"
+        [(value)]="filtros.estado"
+        (seleccion)="aplicarFiltros()"
+      />
+    </div>
+  </div>
+
+  @if (loadingService.isLoading()) {
+    <p>Cargando citas...</p>
+  } @else {
+    <div class="tabla-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Estado</th>
+            <th>Motivo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cita of citas(); track cita.id) {
+            <tr>
+              <td>{{ cita.id }}</td>
+              <td>{{ cita.id_paciente }}</td>
+              <td>{{ cita.id_medico }}</td>
+              <td>{{ cita.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>{{ cita.hora | date:'HH:mm' }}</td>
+              <td>{{ cita.estado }}</td>
+              <td>{{ cita.motivo }}</td>
+              <td>
+                <button class="btn-ver" (click)="verCita(cita.id)">
+                  Ver
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8">No hay citas registradas</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (ultimaPagina() > 1) {
+      <app-paginador
+        [paginaActual]="paginaActual()"
+        [ultimaPagina]="ultimaPagina()"
+        [total]="total()"
+        [porPagina]="porPagina()"
+        (cambiarPagina)="cambiarPagina($event)"
+      />
+    }
+  }
+</div>

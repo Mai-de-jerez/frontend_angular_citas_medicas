@@ -14,4 +14,8 @@ export class AdminDashboard {
   irAUsuarios(): void {
     this.router.navigate(['/admin/usuarios']);
   }
+
+  irACitas(): void {
+    this.router.navigate(['admin/citas'])
+  }
 }
