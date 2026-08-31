@@ -37,6 +37,12 @@
         </li>
       }
 
+      @if (authService.isPaciente()) {
+        <li class="nav-item">
+          <a routerLink="/especialidades" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Coger Cita</a>
+        </li>
+      }
+
       @if (authService.isMedico() || authService.isPaciente()) {
         <li class="nav-item">
           <a routerLink="/mis-citas" routerLinkActive="active-link" class="nav-link" (click)="cerrarMenu()">Mis Citas</a>

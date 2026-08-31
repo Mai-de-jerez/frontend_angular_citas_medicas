@@ -57,7 +57,21 @@ export const routes: Routes = [
         path: 'mis-horarios',
         loadComponent: () => import('./features/users/pages/mis-horarios/mis-horarios').then(m => m.MisHorariosComponent),
         canActivate: [authGuard]
-      }
+      },
+      {
+        path: 'especialidades',
+        loadComponent: () => import('./features/especialidad/pages/listar-especialidades/listar-especialidades').then(m => m.ListarEspecialidadesComponent)
+      },
+      {
+        path: 'especialidades/:id/medicos',
+        loadComponent: () => import('./features/especialidad/pages/listar-medicos-especialidad/listar-medicos-especialidad').then(m => m.ListarMedicosEspecialidadComponent),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'medicos/:id/citas',
+        loadComponent: () => import('./features/citas/pages/citas-medico/citas-medico').then(m => m.CitasMedicoComponent),
+        canActivate: [authGuard]
+      },
     ]
   },
   {

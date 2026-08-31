@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../../../core/services/toast.service';
 import { EspecialidadService } from '../../../../features/especialidad/services/especialidad';
-import { Especialidad, Usuario } from '../../../interfaces/usuario.interface';
+import { Usuario } from '../../../interfaces/usuario.interface';
+import { Especialidad } from '../../../interfaces/especialidad.interface';
 
 @Component({
   selector: 'app-user-form-admin',

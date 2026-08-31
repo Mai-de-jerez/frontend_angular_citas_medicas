@@ -1,4 +1,6 @@
 // src/app/shared/interfaces/usuario.interface.ts
+import { Especialidad } from "./especialidad.interface";
+
 export interface Usuario {
   id: number;
   nombre: string;
@@ -41,9 +43,4 @@ export interface Medico {
   id: number;
   numero_colegiado: string;
   especialidad: Especialidad;
-}
-
-export interface Especialidad {
-  id: number;
-  nombre: string;
 }

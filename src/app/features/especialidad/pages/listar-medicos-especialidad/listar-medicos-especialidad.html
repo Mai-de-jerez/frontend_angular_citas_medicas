@@ -1,0 +1,44 @@
+<div class="container">
+  @if (cargando()) {
+    <p class="loading">Cargando médicos...</p>
+  } @else {
+    @if (datos()) {
+      <h1>Médicos de la especialidad: {{ datos()?.especialidad?.nombre }}</h1>
+
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-id">ID</th>
+              <th>Nombre del Médico</th>
+              <th class="col-acciones">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (medico of datos()?.medicos; track medico.id) {
+              <tr>
+                <td class="col-id">{{ medico.id }}</td>
+                <td><strong>{{ medico.nombre_completo }}</strong></td>
+                <td class="col-acciones">
+                  <button class="btn-ver" (click)="verCitasDisponibles(medico.id)">
+                    Ver Citas
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="3" class="text-center">No hay médicos disponibles para esta especialidad</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="loading">No se han podido cargar los datos de la especialidad.</p>
+    }
+  }
+
+  <div class="acciones-inferiores">
+    <button class="btn-volver" (click)="volver()">Volver</button>
+  </div>
+</div>

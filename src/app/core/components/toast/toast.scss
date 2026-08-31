@@ -45,6 +45,8 @@
 
   &__mensaje {
     font-size: 0.9rem;
+    flex-grow: 1;
+    text-align: center;
   }
 
   &__cerrar {

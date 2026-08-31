@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   register(formData: FormData): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/registro`, formData).pipe(
       tap(res => {
         this.guardarSesion(res);
         this.redirigirSegunRol();
