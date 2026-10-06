@@ -1,1 +1,42 @@
-<p>mis-citas works!</p>
+<div>
+  <div class="barra-superior">
+    <h2>Mis Citas</h2>
+  </div>
+
+  @if (isLoading()) {
+    <p>Cargando citas...</p>
+  } @else if (citas()) {
+    @if (citas()!.length > 0) {
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Médico</th>
+              <th>Paciente</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Estado</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cita of citas(); track cita.id) {
+              <tr>
+                <td>{{ cita.medico.nombre_completo }}</td>
+                <td>{{ cita.paciente.nombre_completo }}</td>
+                <td>{{ cita.fecha | date:'dd/MM/yyyy' }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.estado }}</td>
+                <td>{{ cita.motivo || '-' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p>No tienes citas.</p>
+    }
+  } @else {
+    <p>No se pudieron cargar las citas.</p>
+  }
+</div>

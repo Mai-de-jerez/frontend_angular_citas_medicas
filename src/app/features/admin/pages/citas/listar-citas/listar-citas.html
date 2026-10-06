@@ -55,10 +55,10 @@
           @for (cita of citas(); track cita.id) {
             <tr>
               <td>{{ cita.id }}</td>
-              <td>{{ cita.id_paciente }}</td>
-              <td>{{ cita.id_medico }}</td>
+              <td>{{ cita.paciente.nombre_completo }}</td>
+              <td>{{ cita.medico.nombre_completo }}</td>
               <td>{{ cita.fecha | date:'dd/MM/yyyy' }}</td>
-              <td>{{ cita.hora | date:'HH:mm' }}</td>
+              <td>{{ cita.hora }}</td>
               <td>{{ cita.estado }}</td>
               <td>{{ cita.motivo }}</td>
               <td>

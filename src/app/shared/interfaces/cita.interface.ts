@@ -1,7 +1,13 @@
 export interface Cita {
   id: number;
-  id_paciente: number;
-  id_medico: number;
+  paciente: {
+    id: number;
+    nombre_completo: string;
+  };
+  medico: {
+    id: number;
+    nombre_completo: string;
+  };
   fecha: string;
   hora: string;
   estado: string;
