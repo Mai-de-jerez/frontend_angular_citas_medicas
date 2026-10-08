@@ -1,0 +1,159 @@
+/* Contenedor raíz con padding */
+:host {
+  display: block;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+/* Barra superior (título + subtítulo) */
+.barra-superior {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.5rem;
+    color: #0f172a;
+  }
+
+  .subtitulo {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+/* Estados de carga / error / vacío */
+.estado {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Bloque "próxima disponibilidad" */
+.info-dia {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #0284c7;
+
+  .etiqueta {
+    margin: 0 0 0.25rem 0;
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .fecha {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #0f172a;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+}
+
+/* Grid de huecos */
+.huecos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+}
+
+.hueco {
+  padding: 10px 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0284c7;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+
+  &:hover {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: #0369a1;
+    border-color: #0369a1;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.25);
+  }
+}
+
+/* Botón volver */
+.btn-volver {
+  padding: 8px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+
+  &:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+}
+
+/* Responsive */
+@media (max-width: 978px) {
+  .barra-superior {
+    h2 {
+      font-size: 1.35rem;
+    }
+  }
+
+  .huecos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.4rem;
+    padding: 0.75rem;
+  }
+
+  .hueco {
+    padding: 9px 4px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    padding: 1rem;
+  }
+
+  .info-dia {
+    padding: 0.85rem 1rem;
+
+    .fecha {
+      font-size: 1rem;
+    }
+  }
+
+  .btn-volver {
+    width: 100%;
+  }
+}

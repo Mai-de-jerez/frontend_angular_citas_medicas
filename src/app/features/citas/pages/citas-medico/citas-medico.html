@@ -1,1 +1,38 @@
-<p>citas-medico works!</p>
+<div class="citas-medico-container">
+
+  <div class="barra-superior">
+    <h2>
+      @if (medico()) {
+        {{ medico()!.nombre_completo }}
+      } @else {
+        Citas del médico
+      }
+    </h2>
+    <p class="subtitulo">Selecciona una hora disponible para reservar tu cita</p>
+  </div>
+
+  @if (isLoading()) {
+    <p class="estado">Cargando disponibilidad...</p>
+  } @else if (huecos() && huecos()!.length > 0) {
+
+    <div class="info-dia">
+      <p class="etiqueta">Próxima disponibilidad</p>
+      <h3 class="fecha">{{ formatearFecha(fecha()!) }}</h3>
+    </div>
+
+    <div class="huecos-grid">
+      @for (hora of huecos(); track hora) {
+        <button class="hueco" (click)="reservarHora(hora)">
+          {{ hora }}
+        </button>
+      }
+    </div>
+
+    <button class="btn-volver" (click)="volver()">← Volver</button>
+
+  } @else {
+    <p class="estado">Este médico no tiene huecos disponibles próximamente.</p>
+    <button class="btn-volver" (click)="volver()">← Volver</button>
+  }
+
+</div>

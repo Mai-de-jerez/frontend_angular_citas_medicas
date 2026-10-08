@@ -6,6 +6,8 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { EspecialidadService } from '../../../../features/especialidad/services/especialidad';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { Especialidad } from '../../../interfaces/especialidad.interface';
+import { CentroService } from '../../../../features/centros/services/centro';
+import { Centro } from '../../../interfaces/centro.interface';
 
 @Component({
   selector: 'app-user-form-admin',
@@ -17,9 +19,9 @@ export class UserFormAdmin implements OnInit {
   private fb = inject(FormBuilder);
   private toastService = inject(ToastService);
   private especialidadService = inject(EspecialidadService);
-
+  private centroService = inject(CentroService);
   // inputs
-  usuario = input<Usuario | null>(null); // Si viene, estamos en modo edición
+  usuario = input<Usuario | null>(null); 
   cargando = input<boolean>(false);
   textoBoton = input<string>('Crear usuario');
 
@@ -32,6 +34,7 @@ export class UserFormAdmin implements OnInit {
   fotoSeleccionada: File | null = null;
   especialidades = signal<Especialidad[]>([]);
   esEdicion = signal<boolean>(false);
+  centros = signal<Centro[]>([]);
 
   private readonly TIPOS_PERMITIDOS = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
   private readonly TAMANO_MAXIMO = 2 * 1024 * 1024;
@@ -51,6 +54,7 @@ export class UserFormAdmin implements OnInit {
     numero_tarjeta: ['', [Validators.pattern(/^\d{16}$/)]],
     numero_colegiado: [''],
     id_especialidad: [''],
+    id_centro: [''],
   }, { validators: this.passwordsCoinciden });
 
   private passwordsCoinciden(group: AbstractControl) {
@@ -63,6 +67,7 @@ export class UserFormAdmin implements OnInit {
   ngOnInit(): void {
     // Cargar especialidades (siempre porque es admin)
     this.cargarEspecialidades();
+    this.cargarCentros();
 
     // Si hay usuario, es modo edición
     if (this.usuario()) {
@@ -74,6 +79,16 @@ export class UserFormAdmin implements OnInit {
     this.actualizarValidaciones(this.form.get('rol')?.value || 'paciente');
     this.form.get('rol')?.valueChanges.subscribe((rol) => {
       this.actualizarValidaciones(rol);
+    });
+  }
+
+  cargarCentros(): void {
+    this.centroService.listar().subscribe({
+      next: (data) => this.centros.set(data.centros || []),
+      error: () => {
+        this.centros.set([]);
+        this.toastService.error('Error al cargar centros');
+      }
     });
   }
 
@@ -103,6 +118,7 @@ export class UserFormAdmin implements OnInit {
       compania: u.paciente?.compania || '',
       numero_colegiado: u.medico?.numero_colegiado || '',
       id_especialidad: u.medico?.especialidad?.id || '',
+      id_centro: u.medico?.centro?.id || '',
     });
 
     // Si tiene foto, mostrar preview
@@ -116,6 +132,7 @@ export class UserFormAdmin implements OnInit {
     this.form.get('numero_tarjeta')?.clearValidators();
     this.form.get('numero_colegiado')?.clearValidators();
     this.form.get('id_especialidad')?.clearValidators();
+    this.form.get('id_centro')?.clearValidators(); 
 
     if (rol === 'paciente') {
       this.form.get('compania')?.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
@@ -125,12 +142,14 @@ export class UserFormAdmin implements OnInit {
     if (rol === 'medico') {
       this.form.get('numero_colegiado')?.setValidators([Validators.required]);
       this.form.get('id_especialidad')?.setValidators([Validators.required]);
+      this.form.get('id_centro')?.setValidators([Validators.required]);
     }
 
     this.form.get('compania')?.updateValueAndValidity();
     this.form.get('numero_tarjeta')?.updateValueAndValidity();
     this.form.get('numero_colegiado')?.updateValueAndValidity();
     this.form.get('id_especialidad')?.updateValueAndValidity();
+    this.form.get('id_centro')?.updateValueAndValidity();
   }
 
   onFotoChange(event: Event): void {
@@ -193,6 +212,7 @@ export class UserFormAdmin implements OnInit {
     if (v.rol === 'medico') {
       formData.append('numero_colegiado', v.numero_colegiado);
       formData.append('id_especialidad', v.id_especialidad);
+      formData.append('id_centro', v.id_centro); 
     }
 
     if (this.fotoSeleccionada) {

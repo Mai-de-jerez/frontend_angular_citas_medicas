@@ -79,6 +79,8 @@
 
   <!-- MÉDICO -->
   @if (form.get('rol')?.value === 'medico') {
+
+    <!-- Colegiado + Especialidad -->
     <div class="form-row">
       <div class="form-group">
         <input id="numero_colegiado" type="text" formControlName="numero_colegiado" placeholder="Nº Colegiado *" />
@@ -98,6 +100,20 @@
         }
       </div>
     </div>
+
+    <!-- Centro -->
+    <div class="form-group">
+      <select id="id_centro" formControlName="id_centro">
+        <option value="">Seleccionar centro *</option>
+        @for (c of centros(); track c.id) {
+          <option [value]="c.id">{{ c.nombre }}</option>
+        }
+      </select>
+      @if (form.get('id_centro')?.touched && form.get('id_centro')?.invalid) {
+        <span class="error">Campo obligatorio</span>
+      }
+    </div>
+
   }
 
   <!-- CONTRASEÑA (si es edición, es opcional) -->

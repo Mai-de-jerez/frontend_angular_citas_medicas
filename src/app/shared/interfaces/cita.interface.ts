@@ -22,3 +22,12 @@ export interface CitasListadoResponse {
   por_pagina: number;
   total: number;
 }
+
+export interface HuecosMedicoRespuesta {
+  medico: {
+    id: number;
+    nombre_completo: string;
+  };
+  fecha: string | null;
+  huecos_disponibles: string[];
+}

@@ -1,6 +1,18 @@
 <div>
   <div class="barra-superior">
     <h2>Mis Citas</h2>
+
+    <div class="filtros-group">
+      <input type="date" [(ngModel)]="filtros.fecha" (change)="aplicarFiltros()" />
+      
+      <app-select-busqueda 
+        label="Estado"
+        placeholder="Todos los estados"
+        [opciones]="estadosOpciones"
+        [(value)]="filtros.estado"
+        (seleccion)="aplicarFiltros()"
+      />
+    </div>
   </div>
 
   @if (isLoading()) {

@@ -9,18 +9,18 @@
         [(value)]="filtros.id"
         (buscar)="aplicarFiltros()"
       />
-
+      
       <app-input-busqueda 
-        label="ID Paciente"
+        label="Paciente"
         placeholder="Buscar por paciente..."
-        [(value)]="filtros.id_paciente"
+        [(value)]="filtros.nombre_paciente"
         (buscar)="aplicarFiltros()"
       />
 
       <app-input-busqueda 
-        label="ID Médico"
+        label="Médico"
         placeholder="Buscar por médico..."
-        [(value)]="filtros.id_medico"
+        [(value)]="filtros.nombre_medico"
         (buscar)="aplicarFiltros()"
       />
 

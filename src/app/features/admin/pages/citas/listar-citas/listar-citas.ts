@@ -28,8 +28,8 @@ export class ListarCitas implements OnInit, OnDestroy {
 
   filtros = {
     id: '',
-    id_paciente: '',
-    id_medico: '',
+    nombre_paciente: '',
+    nombre_medico: '',
     estado: ''
   };
 
@@ -56,8 +56,8 @@ export class ListarCitas implements OnInit, OnDestroy {
   cargarCitas(): void {
     this.citasService.listarCitas({
       id: this.filtros.id ? parseInt(this.filtros.id) : undefined,
-      id_paciente: this.filtros.id_paciente ? parseInt(this.filtros.id_paciente) : undefined,
-      id_medico: this.filtros.id_medico ? parseInt(this.filtros.id_medico) : undefined,
+      nombre_paciente: this.filtros.nombre_paciente || undefined,
+      nombre_medico: this.filtros.nombre_medico || undefined,
       estado: this.filtros.estado || undefined,
       page: this.paginaActual()
     }).subscribe({

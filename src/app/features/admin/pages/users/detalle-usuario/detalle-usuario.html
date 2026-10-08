@@ -27,6 +27,7 @@
           <div class="grid-info">
             <div class="campo"><label>Nº Colegiado</label><span>{{ u.medico.numero_colegiado }}</span></div>
             <div class="campo"><label>Especialidad</label><span>{{ u.medico.especialidad.nombre }}</span></div>
+            <div class="campo"><label>Centro</label><span>{{ u.medico.centro?.nombre || '-' }}</span></div> 
           </div>
         </div>
       }
