@@ -6,7 +6,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { EspecialidadService } from '../../../../features/especialidad/services/especialidad';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { Especialidad } from '../../../interfaces/especialidad.interface';
-import { CentroService } from '../../../../features/centros/services/centro';
+import { CentroService } from '../../../../features/centro/services/centro';
 import { Centro } from '../../../interfaces/centro.interface';
 
 @Component({

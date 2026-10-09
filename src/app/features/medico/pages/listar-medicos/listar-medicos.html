@@ -1,0 +1,34 @@
+<div class="medicos-container">
+
+  <div class="header">
+    <h2>Seleccione un Médico</h2>
+    <p>Elige el especialista que quieres que te atienda</p>
+  </div>
+
+  @if (isLoading()) {
+    <p class="estado">Cargando médicos...</p>
+  } @else if (medicos()?.length) {
+    <div class="medicos-grid">
+      @for (medico of medicos(); track medico.id) {
+        <div class="medico-card">
+          <div class="medico-info">
+            <span class="medico-icon">👨‍⚕️</span>
+            <div class="medico-datos">
+              <span class="medico-nombre">{{ medico.nombre_completo }}</span>
+              <span class="medico-especialidad">{{ medico.especialidad.nombre }}</span>
+              <span class="medico-centro">📍 {{ medico.centro?.nombre }}</span>
+            </div>
+          </div>
+          <button class="btn-ver" (click)="verCitasDisponibles(medico.id)">
+            Ver citas
+          </button>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="estado">No hay médicos disponibles en este centro para esta especialidad.</p>
+  }
+
+  <button class="btn-volver" (click)="volver()">← Volver a centros</button>
+
+</div>

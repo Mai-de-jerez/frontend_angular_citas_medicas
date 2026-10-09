@@ -42,8 +42,13 @@ export interface Paciente {
 
 export interface Medico {
   id: number;
+  nombre_completo: string;
   numero_colegiado: string;
   especialidad: Especialidad;
   id_centro?: number;                                            
   centro?: Centro;
+}
+
+export interface MedicosResponse {
+  medicos: Medico[];
 }

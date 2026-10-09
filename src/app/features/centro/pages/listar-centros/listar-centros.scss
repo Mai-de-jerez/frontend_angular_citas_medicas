@@ -1,0 +1,104 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+.centros-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  h2 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.5rem;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+  }
+}
+
+.estado {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.centros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.centro-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+
+  &:hover {
+    border-color: #0284c7;
+    background: #f0f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+  }
+
+  .centro-icon {
+    font-size: 2rem;
+  }
+}
+
+.btn-volver {
+  padding: 8px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+
+  &:hover {
+    background: #e2e8f0;
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    padding: 1rem;
+  }
+
+  .centros-container {
+    padding: 1.25rem;
+  }
+
+  .centros-grid {
+    grid-template-columns: 1fr;
+  }
+}

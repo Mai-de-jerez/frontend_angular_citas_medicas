@@ -58,17 +58,24 @@ export const routes: Routes = [
         loadComponent: () => import('./features/users/pages/mis-horarios/mis-horarios').then(m => m.MisHorariosComponent),
         canActivate: [authGuard]
       },
+
+      // Rutas para la gestión de coger citas por especialidad, centro y médico
       {
-        path: 'especialidades',
+        path: 'coger-cita/especialidades',
         loadComponent: () => import('./features/especialidad/pages/listar-especialidades/listar-especialidades').then(m => m.ListarEspecialidadesComponent)
       },
       {
-        path: 'especialidades/:id/medicos',
-        loadComponent: () => import('./features/especialidad/pages/listar-medicos-especialidad/listar-medicos-especialidad').then(m => m.ListarMedicosEspecialidadComponent),
+        path: 'coger-cita/centros',
+        loadComponent: () => import('./features/centro/pages/listar-centros/listar-centros').then(m => m.ListarCentrosComponent),
         canActivate: [authGuard]
       },
       {
-        path: 'medicos/:id/citas',
+        path: 'coger-cita/medicos',
+        loadComponent: () => import('./features/medico/pages/listar-medicos/listar-medicos').then(m => m.ListarMedicosComponent),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'coger-cita/medicos/:id/citas',
         loadComponent: () => import('./features/citas/pages/citas-medico/citas-medico').then(m => m.CitasMedicoComponent),
         canActivate: [authGuard]
       },

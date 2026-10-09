@@ -1,0 +1,25 @@
+<div class="centros-container">
+
+  <div class="header">
+    <h2>Seleccione un Centro</h2>
+    <p>¿Dónde quieres pasar la consulta?</p>
+  </div>
+
+  @if (isLoading()) {
+    <p class="estado">Cargando centros...</p>
+  } @else if (centros()?.length) {
+    <div class="centros-grid">
+      @for (centro of centros(); track centro.id) {
+        <button class="centro-card" (click)="verMedicos(centro.id)">
+          <span class="centro-icon">🏥</span>
+          <span class="centro-nombre">{{ centro.nombre }}</span>
+        </button>
+      }
+    </div>
+  } @else {
+    <p class="estado">No hay centros disponibles.</p>
+  }
+
+  <button class="btn-volver" (click)="volver()">← Volver</button>
+
+</div>
