@@ -8,7 +8,22 @@
         Citas del médico
       }
     </h2>
-    <p class="subtitulo">Selecciona una hora disponible para reservar tu cita</p>
+
+    @if (medico()?.especialidad || medico()?.centro) {
+      <p class="subtitulo">
+        @if (medico()?.especialidad) {
+          🩺 {{ medico()!.especialidad.nombre }}
+        }
+        @if (medico()?.especialidad && medico()?.centro) {
+          · 
+        }
+        @if (medico()?.centro) {
+          📍 {{ medico()!.centro?.nombre }}
+        }
+      </p>
+    } @else {
+      <p class="subtitulo">Selecciona una hora disponible para reservar tu cita</p>
+    }
   </div>
 
   @if (isLoading()) {

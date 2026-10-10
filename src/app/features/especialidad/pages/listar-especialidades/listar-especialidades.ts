@@ -37,8 +37,8 @@ export class ListarEspecialidadesComponent implements OnInit {
   }
 
   cogerCita(idEspecialidad: number): void {
-  this.router.navigate(['/coger-cita/centros'], {
-    queryParams: { especialidad: idEspecialidad }
-  });
-}
+    this.router.navigate(['/coger-cita/centros'], {
+      queryParams: { especialidad: idEspecialidad }
+    });
+  }
 }

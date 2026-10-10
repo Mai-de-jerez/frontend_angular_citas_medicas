@@ -20,17 +20,18 @@ export class ListarMedicosComponent implements OnInit {
 
   protected isLoading = this.loadingService.isLoading;
   protected medicos = signal<Medico[] | null>(null);
-  protected idEspecialidad!: number;
-  protected idCentro!: number;
+  protected idEspecialidad?: number;   
+  protected idCentro?: number;  
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.idEspecialidad = Number(params['especialidad']);
-      this.idCentro = Number(params['centro']);
+      const idEsp = Number(params['especialidad']);
+      const idCen = Number(params['centro']);
 
-      if (this.idEspecialidad && this.idCentro) {
-        this.cargarMedicos();
-      }
+      this.idEspecialidad = (!isNaN(idEsp)) ? idEsp : undefined;
+      this.idCentro = (!isNaN(idCen)) ? idCen : undefined;
+
+      this.cargarMedicos();   
     });
   }
 
@@ -45,12 +46,19 @@ export class ListarMedicosComponent implements OnInit {
   }
 
   verCitasDisponibles(idMedico: number): void {
-    this.router.navigate(['/coger-cita/medicos', idMedico, 'citas']);
+    const queryParams: Record<string, any> = { medico: idMedico };
+
+    if (this.idEspecialidad) queryParams['especialidad'] = this.idEspecialidad;
+    if (this.idCentro) queryParams['centro'] = this.idCentro;
+
+    this.router.navigate(['/coger-cita/citas'], { queryParams });
   }
 
+
   volver(): void {
-    this.router.navigate(['/coger-cita/centros'], {
-      queryParams: { especialidad: this.idEspecialidad },
-    });
+    const queryParams: Record<string, any> = {};
+    if (this.idEspecialidad) queryParams['especialidad'] = this.idEspecialidad;
+    this.router.navigate(['/coger-cita/centros'], { queryParams });
   }
+  
 }

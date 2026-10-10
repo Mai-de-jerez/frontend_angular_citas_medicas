@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CitasService } from '../../services/citas';
 import { HuecosMedicoRespuesta } from '../../../../shared/interfaces/cita.interface';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { Medico } from '../../../../shared/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-citas-medico',
@@ -18,10 +19,14 @@ export class CitasMedicoComponent implements OnInit {
   private readonly citasService = inject(CitasService);
   private readonly loadingService = inject(LoadingService);
 
-  protected medico = signal<{ id: number; nombre_completo: string } | null>(null);
+  protected medico = signal<Medico | null>(null);
   protected fecha = signal<string | null>(null);
   protected huecos = signal<string[] | null>(null);
   protected isLoading = this.loadingService.isLoading;
+
+  protected idEspecialidad?: number;
+  protected idCentro?: number;
+  protected idMedico?: number;
 
   protected formatearFecha(fechaStr: string): string {
     const fecha = new Date(fechaStr);
@@ -37,9 +42,24 @@ export class CitasMedicoComponent implements OnInit {
     return `${dia}, ${num} de ${mes} de ${anio}`;
   }
 
+
   ngOnInit(): void {
-    const medicoId = Number(this.route.snapshot.paramMap.get('id'));
-    this.cargarHuecos(medicoId);
+    this.route.queryParams.subscribe(params => {
+      const idMed = Number(params['medico']);
+      const idEsp = Number(params['especialidad']);
+      const idCen = Number(params['centro']);
+
+      if (isNaN(idMed)) {
+        this.router.navigate(['/coger-cita/medicos']);
+        return;
+      }
+
+      this.idMedico = idMed;
+      this.idEspecialidad = (!isNaN(idEsp)) ? idEsp : undefined;
+      this.idCentro = (!isNaN(idCen)) ? idCen : undefined;
+
+      this.cargarHuecos(idMed);
+    });
   }
 
   cargarHuecos(medicoId: number): void {
@@ -56,11 +76,25 @@ export class CitasMedicoComponent implements OnInit {
   }
 
   reservarHora(hora: string): void {
-    // Aquí conectaremos con crear cita más adelante
-    console.log('Reservar:', hora, 'con médico', this.medico()?.nombre_completo);
+    const queryParams: Record<string, any> = {
+      medico: this.idMedico,
+      fecha: this.fecha(),
+      hora: hora,
+    };
+
+    if (this.idEspecialidad) queryParams['especialidad'] = this.idEspecialidad;
+    if (this.idCentro) queryParams['centro'] = this.idCentro;
+
+    this.router.navigate(['/coger-cita/reservar'], { queryParams });
   }
 
   volver(): void {
-    window.history.back();
+    
+    const queryParams: Record<string, any> = {};
+
+    if (this.idEspecialidad) queryParams['especialidad'] = this.idEspecialidad;
+    if (this.idCentro) queryParams['centro'] = this.idCentro;
+
+    this.router.navigate(['/coger-cita/medicos'], { queryParams });
   }
 }

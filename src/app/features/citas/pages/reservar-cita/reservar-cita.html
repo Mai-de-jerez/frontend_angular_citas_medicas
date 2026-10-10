@@ -1,0 +1,71 @@
+<div class="reservar-container">
+
+  <div class="header">
+    <h2>Confirmar Cita</h2>
+    <p class="subtitulo">Revisa los datos y confirma tu reserva</p>
+  </div>
+
+  <div class="resumen">
+    @if (medico()) {
+      <div class="linea">
+        <span class="icono">👨‍⚕️</span>
+        <span class="texto">{{ medico()!.nombre_completo }}</span>
+      </div>
+      @if (medico()!.especialidad) {
+        <div class="linea">
+          <span class="icono">🩺</span>
+          <span class="texto">{{ medico()!.especialidad.nombre }}</span>
+        </div>
+      }
+      @if (medico()!.centro) {
+        <div class="linea">
+          <span class="icono">📍</span>
+          <span class="texto">{{ medico()!.centro?.nombre }}</span>
+        </div>
+      }
+    }
+
+    <div class="linea">
+      <span class="icono">📅</span>
+      <span class="texto">{{ formatearFecha(fecha) }}</span>
+    </div>
+
+    <div class="linea destacada">
+      <span class="icono">🕐</span>
+      <span class="texto">{{ hora }}</span>
+    </div>
+  </div>
+
+  <div class="campo">
+    <label for="motivo">Motivo (opcional)</label>
+    <textarea
+      id="motivo"
+      [(ngModel)]="motivo"
+      placeholder="Describe brevemente el motivo de la consulta..."
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="campo">
+    <label for="notas">Notas (opcional)</label>
+    <textarea
+      id="notas"
+      [(ngModel)]="notas"
+      placeholder="Alergias, medicación, observaciones..."
+      rows="3"
+    ></textarea>
+  </div>
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  <div class="acciones">
+    <button class="btn-cancelar" (click)="volver()" [disabled]="creandoCita()">
+      ← Volver
+    </button>
+    <button class="btn-confirmar" (click)="confirmarCita()" [disabled]="creandoCita()">
+      {{ creandoCita() ? 'Reservando...' : 'Confirmar cita' }}
+    </button>
+  </div>
+</div>

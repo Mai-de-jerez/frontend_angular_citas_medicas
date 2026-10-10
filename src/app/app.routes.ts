@@ -75,8 +75,13 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'coger-cita/medicos/:id/citas',
+        path: 'coger-cita/citas',
         loadComponent: () => import('./features/citas/pages/citas-medico/citas-medico').then(m => m.CitasMedicoComponent),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'coger-cita/reservar',
+        loadComponent: () => import('./features/citas/pages/reservar-cita/reservar-cita').then(m => m.ReservarCitaComponent),
         canActivate: [authGuard]
       },
     ]

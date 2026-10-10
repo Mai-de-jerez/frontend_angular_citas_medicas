@@ -20,11 +20,12 @@ export class ListarCentrosComponent implements OnInit {
 
   protected isLoading = this.loadingService.isLoading;
   protected centros = signal<Centro[] | null>(null);
-  protected idEspecialidad!: number;
+  protected idEspecialidad?: number;   
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.idEspecialidad = Number(params['especialidad']);
+      const idEsp = Number(params['especialidad']);
+      this.idEspecialidad = (!isNaN(idEsp)) ? idEsp : undefined;   
       this.cargarCentros();
     });
   }
@@ -35,14 +36,15 @@ export class ListarCentrosComponent implements OnInit {
       error: () => this.centros.set(null),
     });
   }
-
+ 
   verMedicos(idCentro: number): void {
-    this.router.navigate(['/coger-cita/medicos'], {
-      queryParams: {
-        especialidad: this.idEspecialidad,
-        centro: idCentro,
-      },
-    });
+    const queryParams: Record<string, any> = { centro: idCentro };
+
+    if (this.idEspecialidad) {
+      queryParams['especialidad'] = this.idEspecialidad;
+    }
+
+    this.router.navigate(['/coger-cita/medicos'], { queryParams });
   }
 
   volver(): void {

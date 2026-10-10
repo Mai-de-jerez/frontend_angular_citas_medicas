@@ -31,6 +31,9 @@ export class CitasService {
   }
 
 
+  /**
+   * Obtiene las citas de todos los usuarios (solo para administradores)
+   */
   listarCitas(filtros?: {
     id?: number;
     nombre_medico?: string;
@@ -57,6 +60,22 @@ export class CitasService {
   obtenerHuecosMedico(medicoId: number): Observable<HuecosMedicoRespuesta> {
     return this.http.get<HuecosMedicoRespuesta>(
       `${this.apiUrl}/medicos/${medicoId}/citas`
+    );
+  }
+
+  /**
+   * Crear una cita para el paciente autenticado
+   */
+  crearMiCita(payload: {
+    id_medico: number;
+    fecha: string;
+    hora: string;
+    motivo?: string;
+    notas?: string;
+  }): Observable<{ mensaje: string; cita: any }> {
+    return this.http.post<{ mensaje: string; cita: any }>(
+      `${this.apiUrl}/citas`,   
+      payload
     );
   }
 }

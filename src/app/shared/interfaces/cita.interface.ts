@@ -1,3 +1,5 @@
+import { Medico } from "./usuario.interface";
+
 export interface Cita {
   id: number;
   paciente: {
@@ -23,11 +25,9 @@ export interface CitasListadoResponse {
   total: number;
 }
 
+
 export interface HuecosMedicoRespuesta {
-  medico: {
-    id: number;
-    nombre_completo: string;
-  };
+  medico: Medico;      
   fecha: string | null;
   huecos_disponibles: string[];
 }
