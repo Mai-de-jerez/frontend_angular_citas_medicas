@@ -29,6 +29,7 @@
               <th>Hora</th>
               <th>Estado</th>
               <th>Motivo</th>
+              <th class="col-acciones">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +41,11 @@
                 <td>{{ cita.hora }}</td>
                 <td>{{ cita.estado }}</td>
                 <td>{{ cita.motivo || '-' }}</td>
+                <td class="col-acciones">            
+                  <button class="btn-ver" [routerLink]="['/citas', cita.id]">
+                    Ver
+                  </button>
+                </td>
               </tr>
             }
           </tbody>

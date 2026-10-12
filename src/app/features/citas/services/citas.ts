@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { CitasListadoResponse, HuecosMedicoRespuesta } from '../../../shared/interfaces/cita.interface';
+import { Cita, CitasListadoResponse, HuecosMedicoRespuesta } from '../../../shared/interfaces/cita.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +77,21 @@ export class CitasService {
       `${this.apiUrl}/citas`,   
       payload
     );
+  }
+
+  /**
+   * Obtener detalle de una cita (admin)
+   */
+  verCitaAdmin(id: number): Observable<{ cita: Cita }> {
+    return this.http.get<{ cita: Cita }>(`${this.apiUrl}/admin/citas/${id}`);
+  }
+
+  /**
+   * Obtener detalle de UNA cita del usuario autenticado (médico o paciente).
+   * El backend valida que la cita sea SUYA.
+   */
+  verMiCita(id: number): Observable<{ cita: Cita }> {
+    return this.http.get<{ cita: Cita }>(`${this.apiUrl}/citas/${id}`);
   }
 }
 

@@ -101,6 +101,39 @@
   }
 }
 
+/* ✅ Columna de acciones */
+
+.col-acciones {
+  text-align: center;
+  width: 100px;
+}
+
+.btn-ver {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+
+  &:hover {
+    background: #0369a1;
+  }
+
+  &:active {
+    background: #075985;
+  }
+
+  @media (max-width: 600px) {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+}
+
 /* Responsive para los filtros */
 
 @media (max-width: 978px) {

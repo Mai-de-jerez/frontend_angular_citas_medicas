@@ -54,6 +54,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
+        path: 'citas/:id',
+        loadComponent: () => import('./features/citas/pages/detalle-mi-cita/detalle-mi-cita').then(m => m.DetalleMiCitaComponent),
+        canActivate: [authGuard]
+      },
+      {
         path: 'mis-horarios',
         loadComponent: () => import('./features/users/pages/mis-horarios/mis-horarios').then(m => m.MisHorariosComponent),
         canActivate: [authGuard]

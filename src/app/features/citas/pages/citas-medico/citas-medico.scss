@@ -30,13 +30,93 @@
   font-size: 0.95rem;
 }
 
+/* Selector de días */
+.selector-dias {
+  margin-bottom: 1.5rem;
+
+  .etiqueta {
+    margin: 0 0 0.75rem 0;
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .dias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+.dia-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.85rem 0.5rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+
+  &:hover {
+    border-color: #0284c7;
+    background: #f0f9ff;
+  }
+
+  &.activo {
+    border-color: #0284c7;
+    background: #0284c7;
+    color: #ffffff;
+
+    .dia-semana,
+    .dia-mes {
+      color: #ffffff;
+    }
+  }
+
+  .dia-semana {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .dia-mes {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-hoy {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 2px 6px;
+    background: #10b981;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+}
+
 /* Bloque "próxima disponibilidad" */
 .info-dia {
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-left: 4px solid #0284c7;
 
   .etiqueta {
@@ -126,6 +206,10 @@
     h2 {
       font-size: 1.35rem;
     }
+  }
+
+  .dias-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
 
   .huecos-grid {

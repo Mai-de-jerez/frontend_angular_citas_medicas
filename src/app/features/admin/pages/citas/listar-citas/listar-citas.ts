@@ -36,7 +36,8 @@ export class ListarCitas implements OnInit, OnDestroy {
   estadosOpciones = [
     { value: 'activa', label: 'Activa' },
     { value: 'cancelada', label: 'Cancelada' },
-    { value: 'finalizada', label: 'Finalizada' }
+    { value: 'finalizada', label: 'Finalizada' },
+    { value: 'no_presentado', label: 'No presentado' },
   ];
 
   paginaActual = signal<number>(1);

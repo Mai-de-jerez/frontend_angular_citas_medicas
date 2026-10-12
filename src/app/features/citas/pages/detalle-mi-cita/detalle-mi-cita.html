@@ -1,0 +1,74 @@
+<div class="detalle-mi-cita-container">
+
+  @if (isLoading()) {
+    <p class="estado">Cargando cita...</p>
+  } @else if (error()) {
+    <div class="estado error">{{ error() }}</div>
+    <button class="btn-volver" (click)="volver()">← Volver</button>
+  } @else if (cita(); as c) {
+
+    <div class="header">
+      <div>
+        <h2>Detalle de la cita</h2>
+        <p class="subtitulo">
+          @if (esMedico()) {
+            Vista de médico
+          } @else if (esPaciente()) {
+            Vista de paciente
+          }
+        </p>
+      </div>
+      <button class="btn-volver" (click)="volver()">← Volver a mis citas</button>
+    </div>
+
+    <div class="grid-info">
+
+      <div class="campo">
+        <label>Estado</label>
+        <span [class]="'badge badge-' + c.estado">{{ c.estado }}</span>
+      </div>
+
+      <div class="campo">
+        <label>Fecha</label>
+        <span>{{ formatearFecha(c.fecha) }}</span>
+      </div>
+
+      <div class="campo">
+        <label>Hora</label>
+        <span>{{ c.hora }}</span>
+      </div>
+
+      <div class="campo">
+        <label>Centro</label>
+        <span>{{ c.centro?.nombre || '-' }}</span>
+      </div>
+
+      @if (esMedico()) {
+        <div class="campo">
+          <label>Paciente</label>
+          <span>{{ c.paciente.nombre_completo }}</span>
+        </div>
+      }
+
+      @if (esPaciente()) {
+        <div class="campo">
+          <label>Médico</label>
+          <span>{{ c.medico.nombre_completo }}</span>
+        </div>
+      }
+
+      <div class="campo campo-full">
+        <label>Motivo</label>
+        <span>{{ c.motivo || '-' }}</span>
+      </div>
+
+      <div class="campo campo-full">
+        <label>Notas</label>
+        <span>{{ c.notas || '-' }}</span>
+      </div>
+
+    </div>
+
+  }
+
+</div>

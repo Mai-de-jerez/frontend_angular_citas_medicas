@@ -36,6 +36,11 @@ export const ADMIN_ROUTES: Routes = [
         loadComponent: () => import('../pages/citas/listar-citas/listar-citas')
           .then(m => m.ListarCitas)
       },
+      {
+      path: 'citas/:id',
+      loadComponent: () => import('../pages/citas/detalle-cita/detalle-cita')
+        .then(m => m.DetalleCitaComponent)
+    },
     ]
   }
 ];

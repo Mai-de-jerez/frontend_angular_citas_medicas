@@ -5,11 +5,12 @@ import { Cita } from '../../../../shared/interfaces/cita.interface';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { FormsModule } from '@angular/forms';
 import { SelectBusqueda } from '../../../../shared/components/select-busqueda/select-busqueda';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mis-citas',
   standalone: true,
-  imports: [CommonModule, FormsModule, SelectBusqueda],
+  imports: [CommonModule, FormsModule, SelectBusqueda, RouterLink],
   templateUrl: './mis-citas.html',
   styleUrl: './mis-citas.scss',
 })
@@ -29,6 +30,7 @@ export class MisCitasComponent implements OnInit {
     { value: 'activa', label: 'Activa' },
     { value: 'cancelada', label: 'Cancelada' },
     { value: 'finalizada', label: 'Finalizada' },
+    { value: 'no_presentado', label: 'No presentado' },
   ];
 
   ngOnInit(): void {
